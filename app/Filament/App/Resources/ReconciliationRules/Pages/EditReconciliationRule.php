@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Admin\Resources\SiteSettingsResource\Pages;
+namespace App\Filament\App\Resources\ReconciliationRules\Pages;
 
-use App\Filament\Admin\Resources\SiteSettingsResource;
+use App\Filament\App\Resources\ReconciliationRules\ReconciliationRuleResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
-class EditSiteSettings extends EditRecord
+class EditReconciliationRule extends EditRecord
 {
     #[\Override]
-    protected static string $resource = SiteSettingsResource::class;
+    protected static string $resource = ReconciliationRuleResource::class;
 
     #[\Override]
     protected function getHeaderActions(): array

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Filament\Admin\Resources\SiteSettingsResource\Pages;
+namespace App\Filament\App\Resources\ReconciliationRules\Pages;
 
-use App\Filament\Admin\Resources\SiteSettingsResource;
+use App\Filament\App\Resources\ReconciliationRules\ReconciliationRuleResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
-class ListSiteSettings extends ListRecords
+class ListReconciliationRules extends ListRecords
 {
     #[\Override]
-    protected static string $resource = SiteSettingsResource::class;
+    protected static string $resource = ReconciliationRuleResource::class;
 
     #[\Override]
     protected function getHeaderActions(): array

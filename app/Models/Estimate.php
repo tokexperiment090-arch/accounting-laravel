@@ -62,7 +62,9 @@ class Estimate extends Model
 
     public function taxRate()
     {
-        return $this->belongsTo(TaxRate::class);
+        // Explicit keys: TaxRate's PK is tax_rate_id, so Laravel's guessed FK
+        // (tax_rate_tax_rate_id) is wrong and would always resolve to null.
+        return $this->belongsTo(TaxRate::class, 'tax_rate_id', 'tax_rate_id');
     }
 
     public function items()
@@ -105,7 +107,8 @@ class Estimate extends Model
         $previousTaxes = 0;
 
         if ($this->taxRate->is_compound) {
-            $nonCompoundTaxes = TaxRate::where('is_active', true)
+            $nonCompoundTaxes = TaxRate::where('team_id', $this->team_id)
+                ->where('is_active', true)
                 ->where('is_compound', false)
                 ->get();
 
