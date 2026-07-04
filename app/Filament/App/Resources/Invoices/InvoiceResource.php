@@ -159,6 +159,27 @@ class InvoiceResource extends Resource
                                 ->send();
                         }
                     }),
+                Action::make('unpost')
+                    ->label('Unpost')
+                    ->icon('heroicon-o-arrow-uturn-left')
+                    ->color('danger')
+                    ->requiresConfirmation()
+                    ->visible(fn (Invoice $record): bool => $record->journal_entry_id !== null)
+                    ->action(function (Invoice $record): void {
+                        try {
+                            app(\App\Services\PostingReversalService::class)->reverseInvoice($record);
+                            Notification::make()
+                                ->title('Unposted from ledger.')
+                                ->success()
+                                ->send();
+                        } catch (\Throwable $e) {
+                            Notification::make()
+                                ->title('Cannot unpost invoice')
+                                ->body($e->getMessage())
+                                ->danger()
+                                ->send();
+                        }
+                    }),
             ]);
     }
 
