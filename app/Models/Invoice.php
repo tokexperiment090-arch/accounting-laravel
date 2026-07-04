@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Concerns\Approvable;
+use App\Concerns\Recurring;
 use App\Traits\IsTenantModel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
@@ -16,6 +17,7 @@ class Invoice extends Model
     use Approvable;
     use HasFactory;
     use IsTenantModel;
+    use Recurring;
 
     // protected $primaryKey = "invoice_id";
 
@@ -151,43 +153,39 @@ class Invoice extends Model
         return $pdf->download('invoice_'.$this->invoice_number.'.pdf');
     }
 
-    public function generateRecurring(): void
+    protected function recurringNumberColumn(): ?string
     {
-        if (! $this->is_recurring || ! $this->shouldGenerateNew()) {
-            return;
-        }
-
-        $newInvoice = $this->replicate();
-        $newInvoice->invoice_date = $this->getNextDate();
-        $newInvoice->due_date = $this->getNextDate()->addDays(30);
-        $newInvoice->payment_status = 'pending';
-        $newInvoice->save();
-
-        $this->last_generated = now();
-        $this->save();
+        return 'invoice_number';
     }
 
-    private function shouldGenerateNew(): bool
+    protected function recurringItemsRelation(): ?string
     {
-        if ($this->recurrence_end && $this->recurrence_end < now()) {
-            return false;
-        }
-
-        return $this->getNextDate()->lte(now());
+        return 'items';
     }
 
-    private function getNextDate(): Carbon
+    /**
+     * @return array<string, mixed>
+     */
+    protected function recurringDraftAttributes(): array
     {
-        $lastDate = $this->last_generated ?? $this->recurrence_start;
+        return [
+            'payment_status' => 'pending',
+            'approval_status' => 'pending',
+            'approved_by' => null,
+            'approved_at' => null,
+            'rejection_reason' => null,
+        ];
+    }
 
-        return match ($this->recurrence_frequency) {
-            'daily' => $lastDate->addDay(),
-            'weekly' => $lastDate->addWeek(),
-            'monthly' => $lastDate->addMonth(),
-            'yearly' => $lastDate->addYear(),
-            default => $lastDate
-        };
-
+    /**
+     * @return array<string, mixed>
+     */
+    protected function recurringDateColumns(Carbon $date): array
+    {
+        return [
+            'invoice_date' => $date->copy(),
+            'due_date' => $date->copy()->addDays(30),
+        ];
     }
 
     public function approvalAmount(): float

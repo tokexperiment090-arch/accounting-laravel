@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Concerns\Approvable;
+use App\Concerns\Recurring;
 use App\Traits\IsTenantModel;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,6 +17,7 @@ class Bill extends Model
     use Approvable;
     use HasFactory, SoftDeletes;
     use IsTenantModel;
+    use Recurring;
 
     #[\Override]
     protected $primaryKey = 'bill_id';
@@ -42,6 +44,11 @@ class Bill extends Model
         'approval_status',
         'rejection_reason',
         'team_id',
+        'is_recurring',
+        'recurrence_frequency',
+        'recurrence_start',
+        'recurrence_end',
+        'last_generated',
     ];
 
     #[\Override]
@@ -53,7 +60,49 @@ class Bill extends Model
         'total_amount' => 'decimal:2',
         'amount_paid' => 'decimal:2',
         'approved_at' => 'datetime',
+        'is_recurring' => 'boolean',
+        'recurrence_start' => 'date',
+        'recurrence_end' => 'date',
+        'last_generated' => 'date',
     ];
+
+    // Recurrence hooks (App\Concerns\Recurring)
+    protected function recurringNumberColumn(): ?string
+    {
+        return 'bill_number';
+    }
+
+    protected function recurringItemsRelation(): ?string
+    {
+        return 'items';
+    }
+
+    /**
+     * @return array<string, mixed>
+     *
+     * status='draft' holds for a current-period occurrence; the `saving` hook
+     * deliberately escalates it to 'overdue' for back-dated catch-up bills whose
+     * due_date is already past (a bill dated months ago genuinely is overdue).
+     */
+    protected function recurringDraftAttributes(): array
+    {
+        return [
+            'payment_status' => 'unpaid',
+            'status' => 'draft',
+            'approval_status' => 'pending',
+            'approved_by' => null,
+            'approved_at' => null,
+            'amount_paid' => 0,
+        ];
+    }
+
+    protected function recurringDateColumns(Carbon $date): array
+    {
+        return [
+            'bill_date' => $date->copy(),
+            'due_date' => $date->copy()->addDays(30),
+        ];
+    }
 
     // Relationships
     public function vendor()

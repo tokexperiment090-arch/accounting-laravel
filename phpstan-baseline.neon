@@ -307,24 +307,6 @@ parameters:
 			path: app/Filament/Admin/Resources/MenuResource/Pages/ListMenus.php
 
 		-
-			message: '#^Class App\\Filament\\Admin\\Resources\\SiteSettingsResource not found\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Filament/Admin/Resources/SiteSettingsResource/Pages/CreateSiteSettings.php
-
-		-
-			message: '#^Class App\\Filament\\Admin\\Resources\\SiteSettingsResource not found\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Filament/Admin/Resources/SiteSettingsResource/Pages/EditSiteSettings.php
-
-		-
-			message: '#^Class App\\Filament\\Admin\\Resources\\SiteSettingsResource not found\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Filament/Admin/Resources/SiteSettingsResource/Pages/ListSiteSettings.php
-
-		-
 			message: '#^Cannot access property \$name on mixed\.$#'
 			identifier: property.nonObject
 			count: 1
@@ -3003,7 +2985,7 @@ parameters:
 		-
 			message: '#^Access to an undefined property App\\Models\\Bill\:\:\$team_id\.$#'
 			identifier: property.notFound
-			count: 1
+			count: 2
 			path: app/Models/Bill.php
 
 		-
@@ -3265,12 +3247,6 @@ parameters:
 			path: app/Models/BillItem.php
 
 		-
-			message: '#^Method App\\Models\\BillItem\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/BillItem.php
-
-		-
 			message: '#^Cannot access property \$amount_paid on mixed\.$#'
 			identifier: property.nonObject
 			count: 6
@@ -3333,12 +3309,6 @@ parameters:
 		-
 			message: '#^Method App\\Models\\BillPayment\:\:bill\(\) has no return type specified\.$#'
 			identifier: missingType.return
-			count: 1
-			path: app/Models/BillPayment.php
-
-		-
-			message: '#^Method App\\Models\\BillPayment\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
 			count: 1
 			path: app/Models/BillPayment.php
 
@@ -3727,12 +3697,6 @@ parameters:
 			path: app/Models/CreditMemoApplication.php
 
 		-
-			message: '#^Method App\\Models\\CreditMemoApplication\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/CreditMemoApplication.php
-
-		-
 			message: '#^Access to an undefined property App\\Models\\CreditMemoItem\:\:\$taxRate\.$#'
 			identifier: property.notFound
 			count: 1
@@ -3783,12 +3747,6 @@ parameters:
 		-
 			message: '#^Method App\\Models\\CreditMemoItem\:\:taxRate\(\) has no return type specified\.$#'
 			identifier: missingType.return
-			count: 1
-			path: app/Models/CreditMemoItem.php
-
-		-
-			message: '#^Method App\\Models\\CreditMemoItem\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
 			count: 1
 			path: app/Models/CreditMemoItem.php
 
@@ -4255,12 +4213,6 @@ parameters:
 			path: app/Models/EstimateItem.php
 
 		-
-			message: '#^Method App\\Models\\EstimateItem\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/EstimateItem.php
-
-		-
 			message: '#^Class App\\Models\\ExchangeRate uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
 			identifier: missingType.generics
 			count: 1
@@ -4279,50 +4231,8 @@ parameters:
 			path: app/Models/ExchangeRate.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\Expense\:\:\$allocation_percentage\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Expense.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Expense\:\:\$is_indirect\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Models/Expense.php
-
-		-
 			message: '#^Access to an undefined property App\\Models\\Expense\:\:\$team_id\.$#'
 			identifier: property.notFound
-			count: 1
-			path: app/Models/Expense.php
-
-		-
-			message: '#^Binary operation "/" between mixed and 100 results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: app/Models/Expense.php
-
-		-
-			message: '#^Cannot call method addDay\(\) on Carbon\\Carbon\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/Expense.php
-
-		-
-			message: '#^Cannot call method addMonth\(\) on Carbon\\Carbon\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/Expense.php
-
-		-
-			message: '#^Cannot call method addWeek\(\) on Carbon\\Carbon\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/Expense.php
-
-		-
-			message: '#^Cannot call method addYear\(\) on Carbon\\Carbon\|null\.$#'
-			identifier: method.nonObject
 			count: 1
 			path: app/Models/Expense.php
 
@@ -4353,12 +4263,6 @@ parameters:
 		-
 			message: '#^Method App\\Models\\Expense\:\:getAllocatedAmount\(\) has no return type specified\.$#'
 			identifier: missingType.return
-			count: 1
-			path: app/Models/Expense.php
-
-		-
-			message: '#^Method App\\Models\\Expense\:\:getNextDate\(\) should return Carbon\\Carbon but returns Carbon\\Carbon\|null\.$#'
-			identifier: return.type
 			count: 1
 			path: app/Models/Expense.php
 
@@ -4789,6 +4693,12 @@ parameters:
 			path: app/Models/Invoice.php
 
 		-
+			message: '#^Access to an undefined property App\\Models\\Invoice\:\:\$team_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/Invoice.php
+
+		-
 			message: '#^Access to an undefined property App\\Models\\Invoice\:\:\$timeEntries\.$#'
 			identifier: property.notFound
 			count: 1
@@ -4810,30 +4720,6 @@ parameters:
 			message: '#^Cannot access property \$invoice_number on mixed\.$#'
 			identifier: property.nonObject
 			count: 2
-			path: app/Models/Invoice.php
-
-		-
-			message: '#^Cannot call method addDay\(\) on Carbon\\Carbon\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/Invoice.php
-
-		-
-			message: '#^Cannot call method addMonth\(\) on Carbon\\Carbon\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/Invoice.php
-
-		-
-			message: '#^Cannot call method addWeek\(\) on Carbon\\Carbon\|null\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Models/Invoice.php
-
-		-
-			message: '#^Cannot call method addYear\(\) on Carbon\\Carbon\|null\.$#'
-			identifier: method.nonObject
-			count: 1
 			path: app/Models/Invoice.php
 
 		-
@@ -4909,20 +4795,8 @@ parameters:
 			path: app/Models/Invoice.php
 
 		-
-			message: '#^Method App\\Models\\Invoice\:\:getNextDate\(\) should return Carbon\\Carbon but returns Carbon\\Carbon\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: app/Models/Invoice.php
-
-		-
 			message: '#^Method App\\Models\\Invoice\:\:items\(\) has no return type specified\.$#'
 			identifier: missingType.return
-			count: 1
-			path: app/Models/Invoice.php
-
-		-
-			message: '#^Method App\\Models\\Invoice\:\:reject\(\) has parameter \$reason with no type specified\.$#'
-			identifier: missingType.parameter
 			count: 1
 			path: app/Models/Invoice.php
 
@@ -4976,12 +4850,6 @@ parameters:
 
 		-
 			message: '#^Method App\\Models\\InvoiceItem\:\:taxRate\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/InvoiceItem.php
-
-		-
-			message: '#^Method App\\Models\\InvoiceItem\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/InvoiceItem.php
@@ -5359,12 +5227,6 @@ parameters:
 			path: app/Models/PurchaseOrderItem.php
 
 		-
-			message: '#^Method App\\Models\\PurchaseOrderItem\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/PurchaseOrderItem.php
-
-		-
 			message: '#^Class App\\Models\\QboConnection uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
 			identifier: missingType.generics
 			count: 1
@@ -5558,12 +5420,6 @@ parameters:
 
 		-
 			message: '#^Method App\\Models\\RefundReceiptItem\:\:refundReceipt\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/RefundReceiptItem.php
-
-		-
-			message: '#^Method App\\Models\\RefundReceiptItem\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/RefundReceiptItem.php
@@ -5779,12 +5635,6 @@ parameters:
 			path: app/Models/SalesReceiptItem.php
 
 		-
-			message: '#^Method App\\Models\\SalesReceiptItem\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/SalesReceiptItem.php
-
-		-
 			message: '#^PHPDoc tag @property for property App\\Models\\SalesReceiptItem\:\:\$amount contains unknown class App\\Models\\decimal\.$#'
 			identifier: class.notFound
 			count: 1
@@ -5795,18 +5645,6 @@ parameters:
 			identifier: class.notFound
 			count: 1
 			path: app/Models/SalesReceiptItem.php
-
-		-
-			message: '#^Class App\\Models\\SiteSettings uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/SiteSettings.php
-
-		-
-			message: '#^Method App\\Models\\SiteSettings\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/SiteSettings.php
 
 		-
 			message: '#^Class App\\Models\\Supplier uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
@@ -6397,12 +6235,6 @@ parameters:
 			path: app/Models/VendorCreditApplication.php
 
 		-
-			message: '#^Method App\\Models\\VendorCreditApplication\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/VendorCreditApplication.php
-
-		-
 			message: '#^Method App\\Models\\VendorCreditApplication\:\:vendorCredit\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
 			identifier: missingType.generics
 			count: 1
@@ -6452,12 +6284,6 @@ parameters:
 
 		-
 			message: '#^Method App\\Models\\VendorCreditItem\:\:account\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
-			identifier: missingType.generics
-			count: 1
-			path: app/Models/VendorCreditItem.php
-
-		-
-			message: '#^Method App\\Models\\VendorCreditItem\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/VendorCreditItem.php
@@ -7577,6 +7403,126 @@ parameters:
 			identifier: larastan.relationExistence
 			count: 1
 			path: app/Services/AgingReportService.php
+
+		-
+			message: '#^Cannot access property \$approvable on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Cannot access property \$current_step on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Cannot access property \$deadline_days on mixed\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Cannot access property \$fallback_role on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Cannot access property \$rule on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Cannot access property \$status on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Cannot access property \$team_id on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Cannot call method first\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Cannot call method forceFill\(\) on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: method.nonObject
+			count: 3
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Cannot call method markApproved\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Cannot call method markRejected\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Cannot call method orderBy\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Cannot call method steps\(\) on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Cannot call method update\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Cannot call method where\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Cannot call method whereIn\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Cannot call method whereKeyNot\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 2
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Parameter \#1 \$roles of method App\\Models\\User\:\:hasRole\(\) expects array\|BackedEnum\|Illuminate\\Support\\Collection\|int\|Spatie\\Permission\\Contracts\\Role\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/ApprovalService.php
+
+		-
+			message: '#^Parameter \#1 \$value of method Carbon\\Carbon\:\:addDays\(\) expects float\|int, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/ApprovalService.php
 
 		-
 			message: '#^Access to an undefined property App\\Models\\Transaction\:\:\$id\.$#'
@@ -9331,18 +9277,6 @@ parameters:
 			path: app/Services/PlaidService.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\Project\:\:\$code\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Services/ProjectReportService.php
-
-		-
-			message: '#^Access to an undefined property App\\Models\\Project\:\:\$name\.$#'
-			identifier: property.notFound
-			count: 1
-			path: app/Services/ProjectReportService.php
-
-		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$amount\.$#'
 			identifier: property.notFound
 			count: 2
@@ -10129,36 +10063,6 @@ parameters:
 			path: app/Services/SageService.php
 
 		-
-			message: '#^Method App\\Services\\SiteSettingsService\:\:get\(\) has no return type specified\.$#'
-			identifier: missingType.return
-			count: 1
-			path: app/Services/SiteSettingsService.php
-
-		-
-			message: '#^Method App\\Services\\SiteSettingsService\:\:get\(\) has parameter \$key with no type specified\.$#'
-			identifier: missingType.parameter
-			count: 1
-			path: app/Services/SiteSettingsService.php
-
-		-
-			message: '#^Parameter \#1 \$key of static method Illuminate\\Cache\\Repository\:\:forget\(\) expects array\|string\|UnitEnum, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Services/SiteSettingsService.php
-
-		-
-			message: '#^Parameter \#1 \$key of static method Illuminate\\Cache\\Repository\:\:remember\(\) expects string\|UnitEnum, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Services/SiteSettingsService.php
-
-		-
-			message: '#^Parameter \#2 \$ttl of static method Illuminate\\Cache\\Repository\:\:remember\(\) expects Closure\|DateInterval\|DateTimeInterface\|int\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Services/SiteSettingsService.php
-
-		-
 			message: '#^Method App\\Services\\WiseService\:\:exchangeAuthorizationCode\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -10859,18 +10763,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: database/seeders/MenuSeeder.php
-
-		-
-			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: database/seeders/SiteSettingsSeeder.php
-
-		-
-			message: '#^Property App\\Settings\\GeneralSettings\:\:\$site_name \(string\) does not accept mixed\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: database/seeders/SiteSettingsSeeder.php
 
 		-
 			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
