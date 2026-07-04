@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Notifications;
 
 use App\Models\Customer;
+use App\Notifications\Concerns\ResolvesChannels;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -13,12 +14,23 @@ use Illuminate\Notifications\Notification;
 class CollectionNotification extends Notification implements ShouldQueue
 {
     use Queueable;
+    use ResolvesChannels;
 
     public function __construct(protected Customer $customer) {}
 
     public function via($notifiable): array
     {
-        return ['mail'];
+        return $this->channelsFor($notifiable);
+    }
+
+    public function toSms($notifiable): string
+    {
+        $totalOverdue = $this->customer->invoices()
+            ->where('payment_status', 'pending')
+            ->sum('total_amount');
+
+        return 'Your account is on credit hold: $'.number_format((float) $totalOverdue, 2)
+            .' overdue. Please contact collections.';
     }
 
     public function toMail($notifiable): MailMessage

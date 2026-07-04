@@ -25,6 +25,9 @@ class Team extends JetstreamTeam
         'name',
         'personal_team',
         'books_locked_before',
+        'vonage_key',
+        'vonage_secret',
+        'vonage_from',
     ];
 
     /**
@@ -50,6 +53,8 @@ class Team extends JetstreamTeam
         return [
             'personal_team' => 'boolean',
             'books_locked_before' => 'date',
+            'vonage_key' => 'encrypted',
+            'vonage_secret' => 'encrypted',
         ];
     }
 
