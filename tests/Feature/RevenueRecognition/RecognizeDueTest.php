@@ -10,6 +10,7 @@ use App\Models\JournalEntry;
 use App\Models\RevenueSchedule;
 use App\Models\Team;
 use App\Models\User;
+use App\Services\InvoicePostingService;
 use App\Services\RevenueRecognitionService;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -37,9 +38,12 @@ class RecognizeDueTest extends TestCase
         $user = User::factory()->create();
         $team = Team::forceCreate(['user_id' => $user->id, 'name' => 'Acme', 'personal_team' => false]);
         $invoice = Invoice::factory()->create(['team_id' => $team->id, 'total_amount' => 1200, 'invoice_date' => '2026-01-15']);
-        $deferred = Account::create(['account_number' => 2400, 'account_name' => 'Deferred', 'account_type' => 'liability', 'normal_balance' => 'credit', 'balance' => 0, 'opening_balance' => 0, 'is_active' => true, 'allow_manual_entry' => true, 'user_id' => $user->id]);
-        $revenue = Account::create(['account_number' => 4000, 'account_name' => 'Revenue', 'account_type' => 'revenue', 'normal_balance' => 'credit', 'balance' => 0, 'opening_balance' => 0, 'is_active' => true, 'allow_manual_entry' => true, 'user_id' => $user->id]);
+        Account::create(['account_number' => 1100, 'account_name' => 'AR', 'account_type' => 'asset', 'normal_balance' => 'debit', 'balance' => 0, 'opening_balance' => 0, 'is_active' => true, 'allow_manual_entry' => true, 'user_id' => $user->id, 'team_id' => $team->id]);
+        $deferred = Account::create(['account_number' => 2400, 'account_name' => 'Deferred', 'account_type' => 'liability', 'normal_balance' => 'credit', 'balance' => 0, 'opening_balance' => 0, 'is_active' => true, 'allow_manual_entry' => true, 'user_id' => $user->id, 'team_id' => $team->id]);
+        $revenue = Account::create(['account_number' => 4000, 'account_name' => 'Revenue', 'account_type' => 'revenue', 'normal_balance' => 'credit', 'balance' => 0, 'opening_balance' => 0, 'is_active' => true, 'allow_manual_entry' => true, 'user_id' => $user->id, 'team_id' => $team->id]);
         $schedule = app(RevenueRecognitionService::class)->createFromInvoice($invoice, 12, $deferred, $revenue);
+
+        app(InvoicePostingService::class)->post($invoice->fresh());
 
         return [$schedule, $deferred, $revenue, $team];
     }
@@ -51,17 +55,18 @@ class RecognizeDueTest extends TestCase
         $count = app(RevenueRecognitionService::class)->recognizeDue($schedule);
 
         $this->assertSame(3, $count); // 01-15, 02-15, 03-15 <= 2026-03-20
-        // three posted journal entries, each balanced, each stamped with the schedule's team + owner
+        // 1 posting entry + 3 recognition entries, each posted/balanced, each stamped with the team's owner
         $entries = JournalEntry::where('team_id', $team->id)->get();
-        $this->assertCount(3, $entries);
+        $this->assertCount(4, $entries);
         foreach ($entries as $je) {
             $this->assertTrue($je->is_posted);
             $this->assertTrue($je->isBalanced());
             $this->assertSame($team->user_id, (int) $je->user_id);
         }
-        // revenue recognised = 3 * 100.00 = 300.00; deferred liability drawn down by the same
+        // posting credited Deferred by the full 1200 total; recognising 3 periods (3*100.00)
+        // debits it back down: 1200.00 - 300.00 = 900.00. Revenue recognised = 300.00.
         $this->assertSame('300.00', number_format((float) $revenue->fresh()->balance, 2, '.', ''));
-        $this->assertSame('-300.00', number_format((float) $deferred->fresh()->balance, 2, '.', ''));
+        $this->assertSame('900.00', number_format((float) $deferred->fresh()->balance, 2, '.', ''));
         // each recognised entry links its journal entry
         $this->assertSame(3, $schedule->entries()->whereNotNull('journal_entry_id')->where('recognized', true)->count());
 

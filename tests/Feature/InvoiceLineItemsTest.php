@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use App\Models\Account;
+use App\Models\Customer;
 use App\Models\Invoice;
+use App\Models\Team;
 use App\Models\User;
 use App\Services\InvoicePostingService;
+use App\Services\TenantProvisioningService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -36,23 +38,22 @@ class InvoiceLineItemsTest extends TestCase
 
     public function test_invoice_posts_balanced_journal_entry(): void
     {
-        $this->actingAs(User::factory()->create());
+        $user = User::factory()->create();
+        $team = Team::forceCreate(['user_id' => $user->id, 'name' => 'Acme', 'personal_team' => false]);
+        app(TenantProvisioningService::class)->provisionChartOfAccounts($team);
+        $customer = Customer::factory()->create(['team_id' => $team->id]);
 
-        $receivable = Account::factory()->create(['account_type' => 'asset', 'normal_balance' => 'debit']);
-        $revenue = Account::factory()->create(['account_type' => 'revenue', 'normal_balance' => 'credit']);
+        $invoice = Invoice::factory()->create(['team_id' => $team->id, 'customer_id' => $customer->id, 'total_amount' => 0]);
+        $invoice->items()->create(['description' => 'Service A', 'quantity' => 2, 'unit_price' => 100, 'amount' => 200]);
+        $invoice->items()->create(['description' => 'Service B', 'quantity' => 1, 'unit_price' => 50, 'amount' => 50]);
 
-        $invoice = Invoice::factory()->create(['total_amount' => 0]);
-        $invoice->items()->create(['account_id' => $revenue->id, 'description' => 'Service A', 'quantity' => 2, 'unit_price' => 100]);
-        $invoice->items()->create(['account_id' => $revenue->id, 'description' => 'Service B', 'quantity' => 1, 'unit_price' => 50]);
-
-        $entry = app(InvoicePostingService::class)->post($invoice->fresh(), $receivable);
+        $entry = app(InvoicePostingService::class)->post($invoice->fresh());
 
         $this->assertTrue($entry->isBalanced());
-        $this->assertEquals(250.00, $entry->total_debits);
-        $this->assertEquals(250.00, $entry->total_credits);
-        // one AR debit line + one credit line per item
-        $this->assertSame(3, $entry->lines()->count());
-        $this->assertEquals(250.00, $invoice->fresh()->total_amount);
+        $this->assertTrue($entry->is_posted);
+        $this->assertEquals(250.00, (float) $entry->total_debits);
+        $this->assertEquals(250.00, (float) $entry->total_credits);
+        $this->assertSame(2, $entry->lines()->count()); // Dr AR + Cr Sales
     }
 
     public function test_line_item_carries_its_own_tax(): void

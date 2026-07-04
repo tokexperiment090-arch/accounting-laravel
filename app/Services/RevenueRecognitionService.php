@@ -24,6 +24,9 @@ class RevenueRecognitionService
         if ($deferred->is($revenue)) {
             throw new InvalidArgumentException('Deferred and revenue accounts must be different.');
         }
+        if ($invoice->journal_entry_id !== null) {
+            throw new InvalidArgumentException('Cannot create a revenue schedule for an invoice already posted to the ledger.');
+        }
 
         $total = (float) $invoice->total_amount;
         $per = round($total / $periods, 2);
@@ -59,6 +62,9 @@ class RevenueRecognitionService
     {
         if ($schedule->status !== 'active') {
             return 0;
+        }
+        if ($schedule->invoice?->journal_entry_id === null) {
+            return 0; // invoice not yet posted to the ledger -> deferred revenue not funded
         }
 
         $today = today();

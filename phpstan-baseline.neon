@@ -787,36 +787,6 @@ parameters:
 			path: app/Filament/App/Resources/Bills/BillResource.php
 
 		-
-			message: '#^Call to static method make\(\) on an unknown class Filament\\Tables\\Columns\\IndentedTextColumn\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Filament/App/Resources/ChartOfAccounts/ChartOfAccountsResource.php
-
-		-
-			message: '#^Cannot call method indentedFromField\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Filament/App/Resources/ChartOfAccounts/ChartOfAccountsResource.php
-
-		-
-			message: '#^Cannot call method label\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Filament/App/Resources/ChartOfAccounts/ChartOfAccountsResource.php
-
-		-
-			message: '#^Cannot call method searchable\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Filament/App/Resources/ChartOfAccounts/ChartOfAccountsResource.php
-
-		-
-			message: '#^Parameter \#1 \$components of method Filament\\Tables\\Table\:\:columns\(\) expects array\<Filament\\Tables\\Columns\\Column\|Filament\\Tables\\Columns\\ColumnGroup\|Filament\\Tables\\Columns\\Layout\\Component\>, array\<int, mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Filament/App/Resources/ChartOfAccounts/ChartOfAccountsResource.php
-
-		-
 			message: '#^Trying to invoke mixed but it''s not a callable\.$#'
 			identifier: callable.nonCallable
 			count: 2
@@ -5233,6 +5203,12 @@ parameters:
 			path: app/Models/Invoice.php
 
 		-
+			message: '#^Method App\\Models\\Invoice\:\:journalEntry\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Invoice.php
+
+		-
 			message: '#^Method App\\Models\\Invoice\:\:salesOrder\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -8203,6 +8179,12 @@ parameters:
 			path: app/Providers/FortifyServiceProvider.php
 
 		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Providers/RouteServiceProvider.php
+
+		-
 			message: '#^Call to an undefined static method JoelButcher\\Socialstream\\Socialstream\:\:createUsersUsing\(\)\.$#'
 			identifier: staticMethod.notFound
 			count: 1
@@ -10159,38 +10141,14 @@ parameters:
 			path: app/Services/InventoryValuationService.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\Invoice\:\:\$items\.$#'
+			message: '#^Access to an undefined property App\\Models\\Invoice\:\:\$team_id\.$#'
 			identifier: property.notFound
 			count: 1
 			path: app/Services/InvoicePostingService.php
 
 		-
-			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
-			identifier: foreach.nonIterable
-			count: 1
-			path: app/Services/InvoicePostingService.php
-
-		-
-			message: '#^Binary operation "\." between ''Invoice \#'' and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: app/Services/InvoicePostingService.php
-
-		-
-			message: '#^Cannot access property \$account_id on mixed\.$#'
-			identifier: property.nonObject
-			count: 1
-			path: app/Services/InvoicePostingService.php
-
-		-
-			message: '#^Cannot access property \$amount on mixed\.$#'
-			identifier: property.nonObject
-			count: 2
-			path: app/Services/InvoicePostingService.php
-
-		-
-			message: '#^Cannot access property \$description on mixed\.$#'
-			identifier: property.nonObject
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$user_id\.$#'
+			identifier: property.notFound
 			count: 1
 			path: app/Services/InvoicePostingService.php
 
@@ -10201,8 +10159,14 @@ parameters:
 			path: app/Services/InvoicePostingService.php
 
 		-
-			message: '#^Cannot cast mixed to float\.$#'
-			identifier: cast.double
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: app/Services/InvoicePostingService.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
 			count: 1
 			path: app/Services/InvoicePostingService.php
 
@@ -11092,6 +11056,12 @@ parameters:
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$amount\.$#'
 			identifier: property.notFound
 			count: 2
+			path: app/Services/RevenueRecognitionService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$journal_entry_id\.$#'
+			identifier: property.notFound
+			count: 1
 			path: app/Services/RevenueRecognitionService.php
 
 		-

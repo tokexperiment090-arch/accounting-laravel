@@ -9,6 +9,7 @@ use App\Filament\App\Resources\Invoices\Pages\EditInvoice;
 use App\Filament\App\Resources\Invoices\Pages\ListInvoices;
 use App\Filament\App\Resources\Invoices\RelationManagers\DocumentsRelationManager;
 use App\Models\Invoice;
+use App\Services\InvoicePostingService;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
@@ -17,6 +18,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
@@ -132,11 +134,31 @@ class InvoiceResource extends Resource
             ->recordActions([
                 EditAction::make(),
                 Action::make('download')
-                    ->icon('heroicon-o-document-download')
+                    ->icon('heroicon-o-document-arrow-down')
                     ->action(fn (Invoice $record) => response()->streamDownload(
                         fn (): int => print ($record->generatePDF()),
                         "invoice_{$record->invoice_number}.pdf"
                     )),
+                Action::make('postToLedger')
+                    ->label('Post to ledger')
+                    ->icon('heroicon-o-book-open')
+                    ->requiresConfirmation()
+                    ->visible(fn (Invoice $record): bool => $record->journal_entry_id === null)
+                    ->action(function (Invoice $record): void {
+                        try {
+                            $entry = app(InvoicePostingService::class)->post($record);
+                            Notification::make()
+                                ->title("Posted to ledger (entry {$entry->id}).")
+                                ->success()
+                                ->send();
+                        } catch (\RuntimeException $e) {
+                            Notification::make()
+                                ->title('Cannot post invoice')
+                                ->body($e->getMessage())
+                                ->danger()
+                                ->send();
+                        }
+                    }),
             ]);
     }
 

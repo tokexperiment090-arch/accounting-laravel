@@ -12,6 +12,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Invoice extends Model
 {
@@ -45,6 +46,7 @@ class Invoice extends Model
         'document_path',
         'notes',
         'team_id',
+        'journal_entry_id',
     ];
 
     #[\Override]
@@ -87,6 +89,11 @@ class Invoice extends Model
     public function items()
     {
         return $this->hasMany(InvoiceItem::class, 'invoice_id');
+    }
+
+    public function journalEntry(): BelongsTo
+    {
+        return $this->belongsTo(JournalEntry::class);
     }
 
     /**
