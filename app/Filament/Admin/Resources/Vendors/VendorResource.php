@@ -8,6 +8,8 @@ use App\Filament\Admin\Resources\Vendors\Pages\CreateVendor;
 use App\Filament\Admin\Resources\Vendors\Pages\EditVendor;
 use App\Filament\Admin\Resources\Vendors\Pages\ListVendors;
 use App\Models\Vendor;
+use App\Notifications\PortalAccessNotification;
+use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Select;
@@ -86,6 +88,13 @@ class VendorResource extends Resource
             ])
             ->recordActions([
                 EditAction::make(),
+                Action::make('sendPortalInvite')
+                    ->label('Portal invite')
+                    ->icon('heroicon-o-envelope')
+                    ->requiresConfirmation()
+                    // Needs an email to send the signed link to.
+                    ->visible(fn (Vendor $record): bool => filled($record->email))
+                    ->action(fn (Vendor $record) => $record->notify(new PortalAccessNotification('vendor'))),
                 DeleteAction::make(),
             ]);
     }

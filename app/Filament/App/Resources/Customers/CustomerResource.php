@@ -8,6 +8,8 @@ use App\Filament\App\Resources\Customers\Pages\CreateCustomer;
 use App\Filament\App\Resources\Customers\Pages\EditCustomer;
 use App\Filament\App\Resources\Customers\Pages\ListCustomers;
 use App\Models\Customer;
+use App\Notifications\PortalAccessNotification;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -102,6 +104,11 @@ class CustomerResource extends Resource
             ])
             ->recordActions([
                 EditAction::make(),
+                Action::make('sendPortalInvite')
+                    ->label('Portal invite')
+                    ->icon('heroicon-o-envelope')
+                    ->requiresConfirmation()
+                    ->action(fn (Customer $record) => $record->notify(new PortalAccessNotification('customer'))),
                 DeleteAction::make(),
             ])
             ->toolbarActions([

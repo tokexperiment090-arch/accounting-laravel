@@ -180,6 +180,8 @@ return [
         EventServiceProvider::class,
         AdminPanelProvider::class,
         AppPanelProvider::class,
+        App\Providers\Filament\CustomerPanelProvider::class,
+        App\Providers\Filament\VendorPanelProvider::class,
         RouteServiceProvider::class,
 
         TeamServiceProvider::class,
