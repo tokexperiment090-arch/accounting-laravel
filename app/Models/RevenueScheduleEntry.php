@@ -1,6 +1,9 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,6 +26,13 @@ class RevenueScheduleEntry extends Model
         'recognized_at' => 'datetime',
     ];
 
-    public function schedule(): BelongsTo { return $this->belongsTo(RevenueSchedule::class, 'revenue_schedule_id'); }
-    public function journalEntry(): BelongsTo { return $this->belongsTo(JournalEntry::class); }
+    public function schedule(): BelongsTo
+    {
+        return $this->belongsTo(RevenueSchedule::class, 'revenue_schedule_id');
+    }
+
+    public function journalEntry(): BelongsTo
+    {
+        return $this->belongsTo(JournalEntry::class);
+    }
 }

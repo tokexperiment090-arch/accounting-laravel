@@ -5,7 +5,13 @@ declare(strict_types=1);
 namespace App\Filament\App\Resources\RevenueSchedules\Pages;
 
 use App\Filament\App\Resources\RevenueSchedules\RevenueScheduleResource;
+use App\Models\Account;
+use App\Models\Invoice;
+use App\Services\RevenueRecognitionService;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
+use Filament\Support\Exceptions\Halt;
+use Illuminate\Database\Eloquent\Model;
 
 class CreateRevenueSchedule extends CreateRecord
 {
@@ -13,22 +19,23 @@ class CreateRevenueSchedule extends CreateRecord
     protected static string $resource = RevenueScheduleResource::class;
 
     #[\Override]
-    protected function handleRecordCreation(array $data): \Illuminate\Database\Eloquent\Model
+    protected function handleRecordCreation(array $data): Model
     {
         try {
-            return app(\App\Services\RevenueRecognitionService::class)->createFromInvoice(
-                \App\Models\Invoice::findOrFail($data['invoice_id']),
+            return app(RevenueRecognitionService::class)->createFromInvoice(
+                Invoice::findOrFail($data['invoice_id']),
                 (int) $data['periods'],
-                \App\Models\Account::findOrFail($data['deferred_account_id']),
-                \App\Models\Account::findOrFail($data['revenue_account_id']),
+                Account::findOrFail($data['deferred_account_id']),
+                Account::findOrFail($data['revenue_account_id']),
             );
         } catch (\InvalidArgumentException $e) {
-            \Filament\Notifications\Notification::make()
+            Notification::make()
                 ->title('Cannot create revenue schedule')
                 ->body($e->getMessage())
                 ->danger()
                 ->send();
-            $this->halt();
+
+            throw new Halt;
         }
     }
 }

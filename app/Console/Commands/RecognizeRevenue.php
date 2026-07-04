@@ -1,6 +1,9 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Console\Commands;
+
 use App\Models\RevenueSchedule;
 use App\Services\RevenueRecognitionService;
 use Illuminate\Console\Command;
@@ -9,6 +12,7 @@ class RecognizeRevenue extends Command
 {
     #[\Override]
     protected $signature = 'revenue:recognize';
+
     #[\Override]
     protected $description = 'Post due revenue-recognition entries for all active schedules';
 

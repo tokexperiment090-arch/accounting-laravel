@@ -1,6 +1,9 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Models;
+
 use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -36,8 +39,23 @@ class RevenueSchedule extends Model
         });
     }
 
-    public function invoice(): BelongsTo { return $this->belongsTo(Invoice::class); }
-    public function deferredAccount(): BelongsTo { return $this->belongsTo(Account::class, 'deferred_account_id'); }
-    public function revenueAccount(): BelongsTo { return $this->belongsTo(Account::class, 'revenue_account_id'); }
-    public function entries(): HasMany { return $this->hasMany(RevenueScheduleEntry::class); }
+    public function invoice(): BelongsTo
+    {
+        return $this->belongsTo(Invoice::class);
+    }
+
+    public function deferredAccount(): BelongsTo
+    {
+        return $this->belongsTo(Account::class, 'deferred_account_id');
+    }
+
+    public function revenueAccount(): BelongsTo
+    {
+        return $this->belongsTo(Account::class, 'revenue_account_id');
+    }
+
+    public function entries(): HasMany
+    {
+        return $this->hasMany(RevenueScheduleEntry::class);
+    }
 }
