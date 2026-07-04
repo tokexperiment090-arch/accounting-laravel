@@ -5,6 +5,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Document;
 
+use App\Models\DocumentVersion;
 use App\Models\Invoice;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -33,5 +34,18 @@ class BackfillDocumentsTest extends TestCase
         $this->artisan('documents:backfill');
 
         $this->assertSame(1, $invoice->fresh()->documents()->count());
+    }
+
+    public function test_backfill_registers_legacy_path_even_when_a_newer_document_exists(): void
+    {
+        $invoice = Invoice::factory()->create(['document_path' => 'legacy/invoice-42.pdf']);
+        // A brand-new document attached (via the UI) before backfill ever runs.
+        $newer = $invoice->documents()->create(['name' => 'new.pdf', 'disk' => 'local']);
+        $newer->versions()->create(['version_number' => 1, 'path' => 'documents/new.pdf', 'original_filename' => 'new.pdf']);
+
+        $this->artisan('documents:backfill')->assertSuccessful();
+
+        // The legacy path must still be registered, not skipped because a doc already existed.
+        $this->assertTrue(DocumentVersion::where('path', 'legacy/invoice-42.pdf')->exists());
     }
 }

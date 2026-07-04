@@ -26,8 +26,15 @@ class BackfillDocuments extends Command
         $count = 0;
         foreach ([Invoice::class, Bill::class, Estimate::class, CreditMemo::class] as $modelClass) {
             $modelClass::query()->whereNotNull('document_path')->each(function (Model $owner) use (&$count): void {
-                if ($owner->documents()->exists()) {
-                    return; // already backfilled
+                $legacyPath = (string) $owner->document_path;
+                // Skip only if THIS legacy path is already registered — not merely if
+                // the owner has any document (a later Filament upload must not hide the
+                // legacy file from ever being backfilled).
+                $alreadyBackfilled = $owner->documents()
+                    ->whereHas('versions', fn ($q) => $q->where('path', $legacyPath))
+                    ->exists();
+                if ($alreadyBackfilled) {
+                    return;
                 }
                 /** @var Document $document */
                 $document = $owner->documents()->create([

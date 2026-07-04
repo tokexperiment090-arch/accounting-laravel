@@ -8887,6 +8887,12 @@ parameters:
 			path: app/Services/DocumentService.php
 
 		-
+			message: '#^Anonymous function should return App\\Models\\DocumentVersion but returns Illuminate\\Database\\Eloquent\\Model\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Services/DocumentService.php
+
+		-
 			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:documents\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -8907,12 +8913,6 @@ parameters:
 		-
 			message: '#^Cannot cast mixed to string\.$#'
 			identifier: cast.string
-			count: 1
-			path: app/Services/DocumentService.php
-
-		-
-			message: '#^Method App\\Services\\DocumentService\:\:addVersion\(\) should return App\\Models\\DocumentVersion but returns Illuminate\\Database\\Eloquent\\Model\.$#'
-			identifier: return.type
 			count: 1
 			path: app/Services/DocumentService.php
 

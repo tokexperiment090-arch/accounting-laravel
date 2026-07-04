@@ -10,6 +10,7 @@ use App\Models\DocumentVersion;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentService
@@ -38,16 +39,21 @@ class DocumentService
         $teamSegment = $document->team_id ?? 'shared';
         $path = $file->store("documents/{$teamSegment}", $document->disk);
 
-        $next = (int) $document->versions()->max('version_number') + 1;
+        // Serialize concurrent version creation per document so two simultaneous
+        // uploads can't both claim the same version_number (the unique index on
+        // document_versions is the final backstop if a race slips past the lock).
+        return DB::transaction(function () use ($document, $file, $path): DocumentVersion {
+            $next = (int) $document->versions()->lockForUpdate()->max('version_number') + 1;
 
-        return $document->versions()->create([
-            'version_number' => $next,
-            'path' => $path,
-            'original_filename' => $file->getClientOriginalName(),
-            'mime_type' => $file->getClientMimeType(),
-            'size' => $file->getSize() ?: 0,
-            'uploaded_by' => auth()->id(),
-        ]);
+            return $document->versions()->create([
+                'version_number' => $next,
+                'path' => $path,
+                'original_filename' => $file->getClientOriginalName(),
+                'mime_type' => $file->getClientMimeType(),
+                'size' => $file->getSize() ?: 0,
+                'uploaded_by' => auth()->id(),
+            ]);
+        });
     }
 
     public function prune(): int

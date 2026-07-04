@@ -5,8 +5,10 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Document;
 
+use App\Models\DocumentVersion;
 use App\Models\Invoice;
 use App\Services\DocumentService;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -62,5 +64,15 @@ class DocumentServiceTest extends TestCase
         app(DocumentService::class)->attach($invoice, UploadedFile::fake()->create('c.pdf', 10));
 
         $this->assertSame(0, app(DocumentService::class)->prune());
+    }
+
+    public function test_duplicate_version_number_is_rejected_by_the_unique_index(): void
+    {
+        $invoice = Invoice::factory()->create();
+        $doc = app(DocumentService::class)->attach($invoice, UploadedFile::fake()->create('c.pdf', 10)); // v1
+
+        // A racing insert reusing version 1 must fail the (document_id, version_number) unique index.
+        $this->expectException(QueryException::class);
+        DocumentVersion::create(['document_id' => $doc->id, 'version_number' => 1, 'path' => 'dup', 'original_filename' => 'dup']);
     }
 }
