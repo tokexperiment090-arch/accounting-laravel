@@ -25,6 +25,8 @@ class PurchaseOrder extends Model
         'total_amount',
         'status',
         'notes',
+        'purchase_request_id',
+        'team_id',
     ];
 
     #[\Override]
@@ -37,6 +39,11 @@ class PurchaseOrder extends Model
     public function supplier()
     {
         return $this->belongsTo(Supplier::class, 'supplier_id');
+    }
+
+    public function purchaseRequest()
+    {
+        return $this->belongsTo(PurchaseRequest::class, 'purchase_request_id');
     }
 
     public function items()
@@ -64,6 +71,6 @@ class PurchaseOrder extends Model
 
         $number = $lastPo ? (int) substr((string) $lastPo->po_number, -4) + 1 : 1;
 
-        return $prefix.$year.str_pad($number, 4, '0', STR_PAD_LEFT);
+        return $prefix.$year.str_pad((string) $number, 4, '0', STR_PAD_LEFT);
     }
 }
