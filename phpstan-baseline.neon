@@ -5449,6 +5449,12 @@ parameters:
 			path: app/Models/PurchaseOrder.php
 
 		-
+			message: '#^Method App\\Models\\PurchaseOrder\:\:purchaseRequest\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Models/PurchaseOrder.php
+
+		-
 			message: '#^Method App\\Models\\PurchaseOrder\:\:supplier\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -5467,12 +5473,6 @@ parameters:
 			path: app/Models/PurchaseOrder.php
 
 		-
-			message: '#^Parameter \#1 \$string of function str_pad expects string, int given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Models/PurchaseOrder.php
-
-		-
 			message: '#^Class App\\Models\\PurchaseOrderItem uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
 			identifier: missingType.generics
 			count: 1
@@ -5483,6 +5483,72 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: app/Models/PurchaseOrderItem.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$currentTeam\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/PurchaseRequest.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: app/Models/PurchaseRequest.php
+
+		-
+			message: '#^Class App\\Models\\PurchaseRequest uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PurchaseRequest.php
+
+		-
+			message: '#^Method App\\Models\\PurchaseRequest\:\:approvalRequest\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\MorphOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PurchaseRequest.php
+
+		-
+			message: '#^Method App\\Models\\PurchaseRequest\:\:items\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PurchaseRequest.php
+
+		-
+			message: '#^Method App\\Models\\PurchaseRequest\:\:purchaseOrder\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PurchaseRequest.php
+
+		-
+			message: '#^Method App\\Models\\PurchaseRequest\:\:supplier\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PurchaseRequest.php
+
+		-
+			message: '#^Method App\\Models\\PurchaseRequest\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PurchaseRequest.php
+
+		-
+			message: '#^Property App\\Models\\PurchaseRequest\:\:\$team_id \(int\<0, max\>\|null\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Models/PurchaseRequest.php
+
+		-
+			message: '#^Class App\\Models\\PurchaseRequestItem uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PurchaseRequestItem.php
+
+		-
+			message: '#^Method App\\Models\\PurchaseRequestItem\:\:purchaseRequest\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/PurchaseRequestItem.php
 
 		-
 			message: '#^Class App\\Models\\QboConnection uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
@@ -10073,6 +10139,36 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: app/Services/PlaidService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/ProcurementService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$quantity\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/ProcurementService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$total_price\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/ProcurementService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$unit_price\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/ProcurementService.php
+
+		-
+			message: '#^Cannot call method create\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/ProcurementService.php
 
 		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$amount\.$#'
