@@ -15,11 +15,25 @@ use Carbon\Carbon;
  *
  * Cash flow consolidates by simple sum this increment (no cash-flow-specific
  * eliminations — see the design spec).
+ *
+ * CONSTRAINT (until the deferred intercompany-entry authoring UI lands): an
+ * intercompany entry is assumed to carry a single in-scope receivable/payable
+ * line per side (A/R on the seller, A/P on the buyer). Elimination sums every
+ * tagged line of the eliminable types, so a cash-SETTLED or multi-line
+ * intercompany entry would over-eliminate. Cash/bank is therefore deliberately
+ * excluded from eliminable assets below — an intercompany balance is a
+ * receivable/payable, never cash — which defuses the settlement footgun.
  */
 class ConsolidationService
 {
-    /** Balance-sheet asset account types (mirror FinancialStatementService). */
-    private const ASSET_TYPES = ['asset', 'bank', 'current_asset', 'fixed_asset', 'other_asset'];
+    /**
+     * Asset types eligible for intercompany elimination — the balance-sheet
+     * asset types minus cash/bank. Intercompany balances are receivables, not
+     * cash, so a cash settlement line on a tagged entry must not be swept into
+     * eliminations. (Combined asset totals come from FinancialStatementService,
+     * which keeps its own full asset-type list.)
+     */
+    private const ELIMINABLE_ASSET_TYPES = ['asset', 'current_asset', 'fixed_asset', 'other_asset'];
 
     /** Balance-sheet liability account types. */
     private const LIABILITY_TYPES = ['liability', 'current_liability', 'long_term_liability'];
@@ -90,7 +104,7 @@ class ConsolidationService
         }
 
         $eliminations = [
-            'assets' => $this->intercompanyBalance($memberIds, self::ASSET_TYPES, null, $asOf),
+            'assets' => $this->intercompanyBalance($memberIds, self::ELIMINABLE_ASSET_TYPES, null, $asOf),
             'liabilities' => $this->intercompanyBalance($memberIds, self::LIABILITY_TYPES, null, $asOf),
         ];
 
