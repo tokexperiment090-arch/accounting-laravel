@@ -6,7 +6,6 @@ use App\Models\Account;
 use App\Models\Invoice;
 use App\Models\JournalEntry;
 use App\Models\RevenueSchedule;
-use App\Models\RevenueScheduleEntry;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 
