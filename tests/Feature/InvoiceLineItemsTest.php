@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
+use App\Models\Customer;
 use App\Models\Invoice;
+use App\Models\Team;
+use App\Models\User;
 use App\Services\InvoicePostingService;
+use App\Services\TenantProvisioningService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -34,12 +38,12 @@ class InvoiceLineItemsTest extends TestCase
 
     public function test_invoice_posts_balanced_journal_entry(): void
     {
-        $user = \App\Models\User::factory()->create();
-        $team = \App\Models\Team::forceCreate(['user_id' => $user->id, 'name' => 'Acme', 'personal_team' => false]);
-        app(\App\Services\TenantProvisioningService::class)->provisionChartOfAccounts($team);
-        $customer = \App\Models\Customer::factory()->create(['team_id' => $team->id]);
+        $user = User::factory()->create();
+        $team = Team::forceCreate(['user_id' => $user->id, 'name' => 'Acme', 'personal_team' => false]);
+        app(TenantProvisioningService::class)->provisionChartOfAccounts($team);
+        $customer = Customer::factory()->create(['team_id' => $team->id]);
 
-        $invoice = \App\Models\Invoice::factory()->create(['team_id' => $team->id, 'customer_id' => $customer->id, 'total_amount' => 0]);
+        $invoice = Invoice::factory()->create(['team_id' => $team->id, 'customer_id' => $customer->id, 'total_amount' => 0]);
         $invoice->items()->create(['description' => 'Service A', 'quantity' => 2, 'unit_price' => 100, 'amount' => 200]);
         $invoice->items()->create(['description' => 'Service B', 'quantity' => 1, 'unit_price' => 50, 'amount' => 50]);
 
