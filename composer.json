@@ -45,6 +45,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
+            "Liberu\\AccountingSdk\\": "sdk/php/src/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         }
