@@ -233,17 +233,11 @@ class Invoice extends Model
     public function approve(): void
     {
         $this->markApproved();
-
-        // Back-compat: pre-existing consumer event, kept firing alongside ApprovableApproved.
-        event(new InvoiceApproved($this));
     }
 
     public function reject(?string $reason): void
     {
         $this->markRejected($reason);
-
-        // Back-compat: pre-existing consumer event, kept firing alongside ApprovableRejected.
-        event(new InvoiceRejected($this));
     }
 
     public function isPending(): bool
