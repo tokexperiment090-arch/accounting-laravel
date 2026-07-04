@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Models\Account;
-use App\Models\Invoice;
 use App\Models\JournalEntry;
 use App\Models\Payment;
 use Illuminate\Support\Facades\DB;

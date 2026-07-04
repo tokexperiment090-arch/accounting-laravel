@@ -36,9 +36,10 @@ class PostingReversalService
 
         DB::transaction(function () use ($invoice): void {
             $entry = $invoice->journalEntry;
-            if ($entry instanceof JournalEntry) {
-                $entry->reverse();
+            if (! $entry instanceof JournalEntry) {
+                throw new RuntimeException('Linked journal entry is missing.');
             }
+            $entry->reverse();
             $invoice->journal_entry_id = null;
             $invoice->save();
         });
@@ -52,9 +53,10 @@ class PostingReversalService
 
         DB::transaction(function () use ($payment): void {
             $entry = $payment->journalEntry;
-            if ($entry instanceof JournalEntry) {
-                $entry->reverse();
+            if (! $entry instanceof JournalEntry) {
+                throw new RuntimeException('Linked journal entry is missing.');
             }
+            $entry->reverse();
             $payment->journal_entry_id = null;
             $payment->save();
             $payment->invoice?->recomputePaymentStatus();
