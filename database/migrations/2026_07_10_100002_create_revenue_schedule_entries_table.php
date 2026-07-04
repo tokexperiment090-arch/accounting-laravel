@@ -15,7 +15,7 @@ return new class extends Migration {
             $t->timestamp('recognized_at')->nullable();
             $t->foreignId('journal_entry_id')->nullable()->constrained('journal_entries')->nullOnDelete();
             $t->timestamps();
-            $t->unique(['revenue_schedule_id', 'period_number']);
+            $t->unique(['revenue_schedule_id', 'period_number'], 'rev_sched_entry_period_unique');
         });
     }
     public function down(): void { Schema::dropIfExists('revenue_schedule_entries'); }
