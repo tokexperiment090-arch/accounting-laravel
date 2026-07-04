@@ -77,24 +77,7 @@ class PaymentPostingService
 
     private function updateInvoiceStatus(Payment $payment): void
     {
-        $invoice = $payment->invoice;
-        if (! $invoice instanceof Invoice) {
-            return;
-        }
-
-        // Only GL-posted payments count toward status, so it tracks the ledger's
-        // AR balance — a merely-recorded (e.g. QBO-synced) unposted payment must not
-        // flip the invoice to paid while its Dr Cash / Cr AR entry never ran.
-        $paid = (float) $invoice->payments()->whereNotNull('journal_entry_id')->sum('payment_amount');
-        $total = (float) $invoice->total_amount;
-
-        if ($total > 0.0 && $paid >= $total) {
-            $invoice->payment_status = 'paid';
-        } elseif ($paid > 0.0) {
-            $invoice->payment_status = 'partial';
-        }
-
-        $invoice->save();
+        $payment->invoice?->recomputePaymentStatus();
     }
 
     private function resolveByNumber(int $teamId, int $number): Account

@@ -96,6 +96,22 @@ class Invoice extends Model
         return $this->hasMany(Payment::class, 'invoice_id');
     }
 
+    public function recomputePaymentStatus(): void
+    {
+        $paid = (float) $this->payments()->whereNotNull('journal_entry_id')->sum('payment_amount');
+        $total = (float) $this->total_amount;
+
+        if ($total > 0.0 && $paid >= $total) {
+            $this->payment_status = 'paid';
+        } elseif ($paid > 0.0) {
+            $this->payment_status = 'partial';
+        } else {
+            $this->payment_status = 'pending';
+        }
+
+        $this->save();
+    }
+
     public function journalEntry(): BelongsTo
     {
         return $this->belongsTo(JournalEntry::class);
