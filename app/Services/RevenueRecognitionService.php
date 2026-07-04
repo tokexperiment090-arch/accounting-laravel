@@ -4,7 +4,9 @@ namespace App\Services;
 
 use App\Models\Account;
 use App\Models\Invoice;
+use App\Models\JournalEntry;
 use App\Models\RevenueSchedule;
+use App\Models\RevenueScheduleEntry;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 
@@ -47,5 +49,66 @@ class RevenueRecognitionService
 
             return $schedule;
         });
+    }
+
+    public function recognizeDue(RevenueSchedule $schedule): int
+    {
+        if ($schedule->status !== 'active') {
+            return 0;
+        }
+
+        $today = today();
+        $count = 0;
+
+        $due = $schedule->entries()
+            ->where('recognized', false)
+            ->whereDate('recognition_date', '<=', $today)
+            ->orderBy('period_number')
+            ->get();
+
+        foreach ($due as $entry) {
+            DB::transaction(function () use ($schedule, $entry): void {
+                $je = new JournalEntry;
+                // team_id + user_id are NOT fillable and there is no auth() in the scheduled
+                // command; set them explicitly so the entry is team-scoped (never the default
+                // team 1) and satisfies the non-nullable user_id FK (team owner).
+                $je->forceFill([
+                    'entry_date' => $entry->recognition_date,
+                    'entry_type' => 'general',
+                    'reference_number' => (string) $schedule->getKey(),
+                    'memo' => 'Revenue recognition — schedule #'.$schedule->getKey().' period '.$entry->period_number,
+                    'team_id' => $schedule->team_id,
+                    'user_id' => $schedule->team->user_id,
+                ])->save();
+
+                $je->lines()->create([
+                    'account_id' => $schedule->deferred_account_id,
+                    'debit_amount' => $entry->amount,
+                    'credit_amount' => 0,
+                    'description' => 'Deferred revenue recognised',
+                ]);
+                $je->lines()->create([
+                    'account_id' => $schedule->revenue_account_id,
+                    'debit_amount' => 0,
+                    'credit_amount' => $entry->amount,
+                    'description' => 'Revenue recognised',
+                ]);
+
+                $je->post();
+
+                $entry->update([
+                    'recognized' => true,
+                    'recognized_at' => now(),
+                    'journal_entry_id' => $je->getKey(),
+                ]);
+            });
+            $count++;
+        }
+
+        if ($schedule->entries()->where('recognized', false)->count() === 0) {
+            $schedule->update(['status' => 'completed']);
+        }
+
+        return $count;
     }
 }

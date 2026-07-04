@@ -84,5 +84,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->job(new EscalateApprovalsJob())->daily();
         $schedule->command('documents:prune')->daily();
         $schedule->command('subscriptions:process')->daily()->withoutOverlapping();
+        $schedule->command('revenue:recognize')->daily()->withoutOverlapping();
     })
     ->create();
