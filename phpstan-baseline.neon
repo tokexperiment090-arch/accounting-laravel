@@ -4321,6 +4321,12 @@ parameters:
 			path: app/Models/Estimate.php
 
 		-
+			message: '#^Method App\\Models\\Estimate\:\:salesOrder\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Estimate.php
+
+		-
 			message: '#^Method App\\Models\\Estimate\:\:scopeActive\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -5023,6 +5029,12 @@ parameters:
 			path: app/Models/Invoice.php
 
 		-
+			message: '#^Method App\\Models\\Invoice\:\:salesOrder\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Models/Invoice.php
+
+		-
 			message: '#^Method App\\Models\\Invoice\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
 			identifier: missingType.generics
 			count: 1
@@ -5699,6 +5711,72 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/SageConnection.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$currentTeam\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/SalesOrder.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: app/Models/SalesOrder.php
+
+		-
+			message: '#^Class App\\Models\\SalesOrder uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/SalesOrder.php
+
+		-
+			message: '#^Method App\\Models\\SalesOrder\:\:customer\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/SalesOrder.php
+
+		-
+			message: '#^Method App\\Models\\SalesOrder\:\:estimate\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/SalesOrder.php
+
+		-
+			message: '#^Method App\\Models\\SalesOrder\:\:invoice\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/SalesOrder.php
+
+		-
+			message: '#^Method App\\Models\\SalesOrder\:\:items\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/SalesOrder.php
+
+		-
+			message: '#^Method App\\Models\\SalesOrder\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/SalesOrder.php
+
+		-
+			message: '#^Property App\\Models\\SalesOrder\:\:\$team_id \(int\<0, max\>\|null\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Models/SalesOrder.php
+
+		-
+			message: '#^Class App\\Models\\SalesOrderItem uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/SalesOrderItem.php
+
+		-
+			message: '#^Method App\\Models\\SalesOrderItem\:\:salesOrder\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/SalesOrderItem.php
 
 		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$rate\.$#'
@@ -10769,6 +10847,102 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: app/Services/SageService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Estimate\:\:\$items\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/SalesOrderService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$account_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/SalesOrderService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$amount\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/SalesOrderService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$description\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/SalesOrderService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$quantity\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/SalesOrderService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tax_amount\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/SalesOrderService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$tax_rate_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/SalesOrderService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$unit_price\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/SalesOrderService.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: app/Services/SalesOrderService.php
+
+		-
+			message: '#^Cannot access property \$amount on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Services/SalesOrderService.php
+
+		-
+			message: '#^Cannot access property \$description on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Services/SalesOrderService.php
+
+		-
+			message: '#^Cannot access property \$quantity on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Services/SalesOrderService.php
+
+		-
+			message: '#^Cannot access property \$tax_amount on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Services/SalesOrderService.php
+
+		-
+			message: '#^Cannot access property \$tax_rate_id on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Services/SalesOrderService.php
+
+		-
+			message: '#^Cannot access property \$unit_price on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Services/SalesOrderService.php
+
+		-
+			message: '#^Cannot call method create\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/SalesOrderService.php
 
 		-
 			message: '#^Method App\\Services\\WiseService\:\:exchangeAuthorizationCode\(\) return type has no value type specified in iterable type array\.$#'
