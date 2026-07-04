@@ -8,6 +8,7 @@ use App\Filament\App\Resources\Estimates\Pages\CreateEstimate;
 use App\Filament\App\Resources\Estimates\Pages\EditEstimate;
 use App\Filament\App\Resources\Estimates\Pages\ListEstimates;
 use App\Models\Estimate;
+use App\Services\SalesOrderService;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -17,6 +18,7 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
@@ -186,6 +188,19 @@ class EstimateResource extends Resource
                     ->visible(fn ($record): bool => $record->status === 'accepted' && ! $record->invoice_id)
                     ->requiresConfirmation()
                     ->action(fn ($record) => $record->convertToInvoice()),
+                Action::make('convertToSalesOrder')
+                    ->label('Convert to Sales Order')
+                    ->icon('heroicon-o-clipboard-document-check')
+                    ->requiresConfirmation()
+                    ->visible(fn (Estimate $record): bool => $record->status === 'accepted' && ! $record->salesOrder()->exists())
+                    ->action(function (Estimate $record): void {
+                        try {
+                            app(SalesOrderService::class)->createFromEstimate($record);
+                            Notification::make()->title('Sales order created')->success()->send();
+                        } catch (\DomainException $e) {
+                            Notification::make()->title($e->getMessage())->danger()->send();
+                        }
+                    }),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
