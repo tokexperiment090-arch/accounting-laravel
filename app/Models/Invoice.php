@@ -45,6 +45,7 @@ class Invoice extends Model
         'document_path',
         'notes',
         'team_id',
+        'journal_entry_id',
     ];
 
     #[\Override]
@@ -87,6 +88,11 @@ class Invoice extends Model
     public function items()
     {
         return $this->hasMany(InvoiceItem::class, 'invoice_id');
+    }
+
+    public function journalEntry(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(JournalEntry::class);
     }
 
     /**
