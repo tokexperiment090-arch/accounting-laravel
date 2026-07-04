@@ -12,16 +12,37 @@ use Illuminate\Support\Collection;
 class FinancialStatementService
 {
     /**
-     * The acting user's current team, or -1 when there is none — a sentinel that
-     * matches no row (team ids are positive), so a tenantless call returns empty
-     * rather than leaking every unassigned (team_id IS NULL) row.
+     * When set, statements are produced for this team instead of the acting
+     * user's current team. Lets consolidation compute any member team without
+     * an auth context (see withTeam()).
+     */
+    private ?int $teamOverride = null;
+
+    /**
+     * An immutable copy scoped to a specific team. Every statement method
+     * resolves its team through scopedTeamId(), so this reparameterizes all of
+     * them without threading a team id through each call.
+     */
+    public function withTeam(int $teamId): self
+    {
+        $clone = clone $this;
+        $clone->teamOverride = $teamId;
+
+        return $clone;
+    }
+
+    /**
+     * The team to scope to: an explicit override, else the acting user's
+     * current team, else -1 — a sentinel that matches no row (team ids are
+     * positive), so a tenantless call returns empty rather than leaking every
+     * unassigned (team_id IS NULL) row.
      *
      * Mirrors GeneralLedgerService::scopedTeamId(); statements are only produced
-     * in authenticated contexts (Sanctum API, Filament panel).
+     * in authenticated contexts (Sanctum API, Filament panel) or via withTeam().
      */
     private function scopedTeamId(): int
     {
-        return auth()->user()->current_team_id ?? -1;
+        return $this->teamOverride ?? auth()->user()?->current_team_id ?? -1;
     }
 
     /**

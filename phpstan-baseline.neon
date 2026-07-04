@@ -367,6 +367,36 @@ parameters:
 			path: app/Filament/Admin/Resources/Users/UserResource.php
 
 		-
+			message: '#^Access to an undefined property App\\Filament\\App\\Pages\\ConsolidatedReports\:\:\$form\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/App/Pages/ConsolidatedReports.php
+
+		-
+			message: '#^Cannot call method fill\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Filament/App/Pages/ConsolidatedReports.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: app/Filament/App/Pages/ConsolidatedReports.php
+
+		-
+			message: '#^Method App\\Filament\\App\\Pages\\ConsolidatedReports\:\:visibleGroups\(\) should return array\<int, string\> but returns array\<mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Filament/App/Pages/ConsolidatedReports.php
+
+		-
+			message: '#^Parameter \#1 \$time of static method Carbon\\Carbon\:\:parse\(\) expects Carbon\\Month\|Carbon\\WeekDay\|DateTimeInterface\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: app/Filament/App/Pages/ConsolidatedReports.php
+
+		-
 			message: '#^Method App\\Filament\\App\\Pages\\CreateTeam\:\:getBreadcrumbs\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -749,6 +779,30 @@ parameters:
 			identifier: binaryOp.invalid
 			count: 1
 			path: app/Filament/App/Resources/ChartOfAccounts/Pages/ListChartOfAccounts.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 2
+			path: app/Filament/App/Resources/ConsolidationGroups/ConsolidationGroupResource.php
+
+		-
+			message: '#^Method App\\Filament\\App\\Resources\\ConsolidationGroups\\ConsolidationGroupResource\:\:allowedTeamIds\(\) should return array\<int, int\> but returns array\<int\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Filament/App/Resources/ConsolidationGroups/ConsolidationGroupResource.php
+
+		-
+			message: '#^Parameter \#1 \$group of static method App\\Filament\\App\\Resources\\ConsolidationGroups\\ConsolidationGroupResource\:\:enforceAllowedMembers\(\) expects App\\Models\\ConsolidationGroup, Illuminate\\Database\\Eloquent\\Model\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Filament/App/Resources/ConsolidationGroups/Pages/CreateConsolidationGroup.php
+
+		-
+			message: '#^Parameter \#1 \$group of static method App\\Filament\\App\\Resources\\ConsolidationGroups\\ConsolidationGroupResource\:\:enforceAllowedMembers\(\) expects App\\Models\\ConsolidationGroup, Illuminate\\Database\\Eloquent\\Model\|int\|string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Filament/App/Resources/ConsolidationGroups/Pages/EditConsolidationGroup.php
 
 		-
 			message: '#^Cannot access property \$amount_remaining on mixed\.$#'
@@ -3499,6 +3553,12 @@ parameters:
 			path: app/Models/ConnectedAccount.php
 
 		-
+			message: '#^Method App\\Models\\ConsolidationGroup\:\:ownerTeam\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/ConsolidationGroup.php
+
+		-
 			message: '#^Access to an undefined property App\\Models\\CreditMemo\:\:\$items\.$#'
 			identifier: property.notFound
 			count: 1
@@ -5030,6 +5090,12 @@ parameters:
 
 		-
 			message: '#^Method App\\Models\\JournalEntry\:\:approvedBy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: app/Models/JournalEntry.php
+
+		-
+			message: '#^Method App\\Models\\JournalEntry\:\:counterpartyTeam\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: app/Models/JournalEntry.php
@@ -7375,12 +7441,6 @@ parameters:
 			path: app/Notifications/PaymentReminderNotification.php
 
 		-
-			message: '#^Access to an undefined property App\\Models\\Invoice\:\:\$invoice_id\.$#'
-			identifier: property.notFound
-			count: 3
-			path: app/Notifications/PaymentReminderNotification.php
-
-		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$database_enabled\.$#'
 			identifier: property.notFound
 			count: 1
@@ -7405,25 +7465,7 @@ parameters:
 			path: app/Notifications/PaymentReminderNotification.php
 
 		-
-			message: '#^Binary operation "\." between ''/invoices/'' and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: app/Notifications/PaymentReminderNotification.php
-
-		-
 			message: '#^Binary operation "\." between ''Hello '' and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: app/Notifications/PaymentReminderNotification.php
-
-		-
-			message: '#^Binary operation "\." between ''Payment Reminder \-…'' and mixed results in an error\.$#'
-			identifier: binaryOp.invalid
-			count: 1
-			path: app/Notifications/PaymentReminderNotification.php
-
-		-
-			message: '#^Binary operation "\." between ''This is a reminder…'' and mixed results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
 			path: app/Notifications/PaymentReminderNotification.php
@@ -8323,6 +8365,72 @@ parameters:
 			path: app/Services/CollectionService.php
 
 		-
+			message: '#^Access to an undefined property App\\Models\\JournalEntryLine\:\:\$account\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/ConsolidationService.php
+
+		-
+			message: '#^Cannot access offset ''net_cash_from_financing'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Services/ConsolidationService.php
+
+		-
+			message: '#^Cannot access offset ''net_cash_from_investing'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Services/ConsolidationService.php
+
+		-
+			message: '#^Cannot access offset ''net_cash_from_operations'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: app/Services/ConsolidationService.php
+
+		-
+			message: '#^Cannot access offset ''total'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 6
+			path: app/Services/ConsolidationService.php
+
+		-
+			message: '#^Cannot access property \$account_type on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Services/ConsolidationService.php
+
+		-
+			message: '#^Cannot cast mixed to float\.$#'
+			identifier: cast.double
+			count: 14
+			path: app/Services/ConsolidationService.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: app/Services/ConsolidationService.php
+
+		-
+			message: '#^Method App\\Services\\ConsolidationService\:\:memberIds\(\) should return array\<int, int\> but returns array\<int\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Services/ConsolidationService.php
+
+		-
+			message: '#^Relation ''account'' is not found in App\\Models\\JournalEntryLine model\.$#'
+			identifier: larastan.relationExistence
+			count: 2
+			path: app/Services/ConsolidationService.php
+
+		-
+			message: '#^Relation ''journalEntry'' is not found in App\\Models\\JournalEntryLine model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/ConsolidationService.php
+
+		-
 			message: '#^Access to an undefined property App\\Models\\ExchangeRate\:\:\$fromCurrency\.$#'
 			identifier: property.notFound
 			count: 1
@@ -8523,6 +8631,12 @@ parameters:
 		-
 			message: '#^Relation ''journalEntry'' is not found in App\\Models\\JournalEntryLine model\.$#'
 			identifier: larastan.relationExistence
+			count: 1
+			path: app/Services/FinancialStatementService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>current_team_id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
 			count: 1
 			path: app/Services/FinancialStatementService.php
 
