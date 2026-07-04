@@ -5,16 +5,23 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\IsTenantModel;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Vendor extends Model
+class Vendor extends Authenticatable implements FilamentUser
 {
     use HasFactory;
     use IsTenantModel;
+    use Notifiable;
 
     #[\Override]
     protected $primaryKey = 'vendor_id';
+
+    /** Auth guard for the vendor portal. */
+    protected string $guard = 'vendor';
 
     #[\Override]
     protected $fillable = [
@@ -26,6 +33,25 @@ class Vendor extends Model
         'payment_terms',
         'status',
     ];
+
+    #[\Override]
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    #[\Override]
+    protected $casts = [
+        'password' => 'hashed',
+    ];
+
+    /**
+     * Vendors may reach only their own portal — never the staff panels.
+     */
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $panel->getId() === 'vendor';
+    }
 
     public function invoices()
     {

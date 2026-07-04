@@ -109,7 +109,8 @@ class User extends Authenticatable implements FilamentUser, HasDefaultTenant, Ha
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->hasVerifiedEmail();
+        // Staff reach only the staff panels — never the customer/vendor portals.
+        return in_array($panel->getId(), ['admin', 'app'], true) && $this->hasVerifiedEmail();
     }
 
     public function canAccessFilament(): bool

@@ -5,17 +5,32 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Traits\IsTenantModel;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Customer extends Authenticatable
+class Customer extends Authenticatable implements FilamentUser
 {
     use HasFactory, Notifiable;
     use IsTenantModel;
 
     // protected $primaryKey = 'customer_id';
     protected $guard = 'customer';
+
+    #[\Override]
+    protected $casts = [
+        'password' => 'hashed',
+    ];
+
+    /**
+     * Customers may reach only their own portal — never the staff panels.
+     */
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $panel->getId() === 'customer';
+    }
 
     #[\Override]
     protected $fillable = [
