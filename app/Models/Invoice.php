@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Invoice extends Model
 {
@@ -91,9 +92,25 @@ class Invoice extends Model
         return $this->hasMany(InvoiceItem::class, 'invoice_id');
     }
 
-    public function payments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function payments(): HasMany
     {
         return $this->hasMany(Payment::class, 'invoice_id');
+    }
+
+    public function recomputePaymentStatus(): void
+    {
+        $paid = (float) $this->payments()->whereNotNull('journal_entry_id')->sum('payment_amount');
+        $total = (float) $this->total_amount;
+
+        if ($total > 0.0 && $paid >= $total) {
+            $this->payment_status = 'paid';
+        } elseif ($paid > 0.0) {
+            $this->payment_status = 'partial';
+        } else {
+            $this->payment_status = 'pending';
+        }
+
+        $this->save();
     }
 
     public function journalEntry(): BelongsTo

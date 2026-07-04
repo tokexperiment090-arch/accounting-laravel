@@ -9,6 +9,7 @@ use App\Filament\App\Resources\Payments\Pages\EditPayment;
 use App\Filament\App\Resources\Payments\Pages\ListPayments;
 use App\Models\Payment;
 use App\Services\PaymentPostingService;
+use App\Services\PostingReversalService;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -83,6 +84,27 @@ class PaymentResource extends Resource
                         } catch (\RuntimeException $e) {
                             Notification::make()
                                 ->title('Cannot post payment')
+                                ->body($e->getMessage())
+                                ->danger()
+                                ->send();
+                        }
+                    }),
+                Action::make('unpost')
+                    ->label('Unpost')
+                    ->icon('heroicon-o-arrow-uturn-left')
+                    ->color('danger')
+                    ->requiresConfirmation()
+                    ->visible(fn (Payment $record): bool => $record->journal_entry_id !== null)
+                    ->action(function (Payment $record): void {
+                        try {
+                            app(PostingReversalService::class)->reversePayment($record);
+                            Notification::make()
+                                ->title('Unposted from ledger.')
+                                ->success()
+                                ->send();
+                        } catch (\Throwable $e) {
+                            Notification::make()
+                                ->title('Cannot unpost payment')
                                 ->body($e->getMessage())
                                 ->danger()
                                 ->send();
