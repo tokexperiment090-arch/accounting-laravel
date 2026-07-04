@@ -787,36 +787,6 @@ parameters:
 			path: app/Filament/App/Resources/Bills/BillResource.php
 
 		-
-			message: '#^Call to static method make\(\) on an unknown class Filament\\Tables\\Columns\\IndentedTextColumn\.$#'
-			identifier: class.notFound
-			count: 1
-			path: app/Filament/App/Resources/ChartOfAccounts/ChartOfAccountsResource.php
-
-		-
-			message: '#^Cannot call method indentedFromField\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Filament/App/Resources/ChartOfAccounts/ChartOfAccountsResource.php
-
-		-
-			message: '#^Cannot call method label\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Filament/App/Resources/ChartOfAccounts/ChartOfAccountsResource.php
-
-		-
-			message: '#^Cannot call method searchable\(\) on mixed\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: app/Filament/App/Resources/ChartOfAccounts/ChartOfAccountsResource.php
-
-		-
-			message: '#^Parameter \#1 \$components of method Filament\\Tables\\Table\:\:columns\(\) expects array\<Filament\\Tables\\Columns\\Column\|Filament\\Tables\\Columns\\ColumnGroup\|Filament\\Tables\\Columns\\Layout\\Component\>, array\<int, mixed\> given\.$#'
-			identifier: argument.type
-			count: 1
-			path: app/Filament/App/Resources/ChartOfAccounts/ChartOfAccountsResource.php
-
-		-
 			message: '#^Trying to invoke mixed but it''s not a callable\.$#'
 			identifier: callable.nonCallable
 			count: 2
@@ -8201,6 +8171,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/Providers/FortifyServiceProvider.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Providers/RouteServiceProvider.php
 
 		-
 			message: '#^Call to an undefined static method JoelButcher\\Socialstream\\Socialstream\:\:createUsersUsing\(\)\.$#'
