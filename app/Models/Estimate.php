@@ -8,6 +8,7 @@ use App\Traits\IsTenantModel;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Estimate extends Model
@@ -75,6 +76,11 @@ class Estimate extends Model
     public function invoice()
     {
         return $this->belongsTo(Invoice::class);
+    }
+
+    public function salesOrder(): HasOne
+    {
+        return $this->hasOne(SalesOrder::class, 'estimate_id', 'estimate_id');
     }
 
     // Calculated Attributes
@@ -174,6 +180,12 @@ class Estimate extends Model
 
         if ($this->invoice_id) {
             throw new \Exception('This estimate has already been converted to an invoice.');
+        }
+
+        // The estimate may already be flowing through the sales-order path; block
+        // the legacy direct path too, or one estimate ends up with two invoices.
+        if ($this->salesOrder()->exists()) {
+            throw new \Exception('This estimate already has a sales order.');
         }
 
         // Create invoice
