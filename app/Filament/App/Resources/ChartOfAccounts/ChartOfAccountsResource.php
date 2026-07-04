@@ -19,7 +19,6 @@ use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\IndentedTextColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -123,8 +122,7 @@ class ChartOfAccountsResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->label('Number'),
-                IndentedTextColumn::make('account_name')
-                    ->indentedFromField('parent_id')
+                TextColumn::make('account_name')
                     ->searchable()
                     ->label('Account Name'),
                 TextColumn::make('account_type')

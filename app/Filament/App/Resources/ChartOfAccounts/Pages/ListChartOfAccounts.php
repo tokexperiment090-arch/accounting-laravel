@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace App\Filament\App\Resources\ChartOfAccounts\Pages;
 
 use App\Filament\App\Resources\ChartOfAccounts\ChartOfAccountsResource;
+use App\Models\Team;
 use App\Services\AccountCsvService;
+use App\Services\TenantProvisioningService;
 use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
+use Filament\Facades\Filament;
 use Filament\Forms\Components\FileUpload;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
@@ -23,9 +26,31 @@ class ListChartOfAccounts extends ListRecords
     {
         return [
             CreateAction::make(),
+            $this->provisionAction(),
             $this->exportAction(),
             $this->importAction(),
         ];
+    }
+
+    private function provisionAction(): Action
+    {
+        return Action::make('provisionChart')
+            ->label('Seed standard chart')
+            ->icon('heroicon-o-sparkles')
+            ->color('gray')
+            ->requiresConfirmation()
+            ->modalDescription('Create a standard chart of accounts for this team. Skipped if accounts already exist.')
+            ->action(function (TenantProvisioningService $service): void {
+                $tenant = Filament::getTenant();
+                if (! $tenant instanceof Team) {
+                    return;
+                }
+                $count = $service->provisionChartOfAccounts($tenant);
+                Notification::make()
+                    ->title($count > 0 ? "Provisioned {$count} accounts." : 'Chart already exists; nothing added.')
+                    ->success()
+                    ->send();
+            });
     }
 
     private function exportAction(): Action
