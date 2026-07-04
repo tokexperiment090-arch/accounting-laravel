@@ -7,6 +7,7 @@ namespace App\Filament\App\Resources\Bills;
 use App\Filament\App\Resources\Bills\Pages\CreateBill;
 use App\Filament\App\Resources\Bills\Pages\EditBill;
 use App\Filament\App\Resources\Bills\Pages\ListBills;
+use App\Filament\App\Resources\Invoices\RelationManagers\DocumentsRelationManager;
 use App\Models\Bill;
 use App\Models\TaxRate;
 use Filament\Actions\BulkActionGroup;
@@ -224,7 +225,7 @@ class BillResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            DocumentsRelationManager::class,
         ];
     }
 
