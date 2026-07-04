@@ -34,7 +34,9 @@ class PortalAccessNotification extends Notification implements ShouldQueue
         $url = URL::temporarySignedRoute(
             "portal.{$this->guard}.set-password",
             now()->addHours(24),
-            ['id' => $notifiable->getKey()],
+            // hash of the current password → the link stops working the moment a
+            // password is set (single-use), so a leaked link can't take over later.
+            ['id' => $notifiable->getKey(), 'hash' => sha1((string) $notifiable->password)],
         );
 
         return (new MailMessage)

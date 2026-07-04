@@ -69,10 +69,12 @@
     65 => 'App\\Providers\\EventServiceProvider',
     66 => 'App\\Providers\\Filament\\AdminPanelProvider',
     67 => 'App\\Providers\\Filament\\AppPanelProvider',
-    68 => 'App\\Providers\\RouteServiceProvider',
-    69 => 'App\\Providers\\TeamServiceProvider',
-    70 => 'App\\Providers\\JetstreamServiceProvider',
-    71 => 'App\\Providers\\FortifyServiceProvider',
+    68 => 'App\\Providers\\Filament\\CustomerPanelProvider',
+    69 => 'App\\Providers\\Filament\\VendorPanelProvider',
+    70 => 'App\\Providers\\RouteServiceProvider',
+    71 => 'App\\Providers\\TeamServiceProvider',
+    72 => 'App\\Providers\\JetstreamServiceProvider',
+    73 => 'App\\Providers\\FortifyServiceProvider',
   ),
   'eager' => 
   array (
@@ -127,10 +129,12 @@
     48 => 'App\\Providers\\EventServiceProvider',
     49 => 'App\\Providers\\Filament\\AdminPanelProvider',
     50 => 'App\\Providers\\Filament\\AppPanelProvider',
-    51 => 'App\\Providers\\RouteServiceProvider',
-    52 => 'App\\Providers\\TeamServiceProvider',
-    53 => 'App\\Providers\\JetstreamServiceProvider',
-    54 => 'App\\Providers\\FortifyServiceProvider',
+    51 => 'App\\Providers\\Filament\\CustomerPanelProvider',
+    52 => 'App\\Providers\\Filament\\VendorPanelProvider',
+    53 => 'App\\Providers\\RouteServiceProvider',
+    54 => 'App\\Providers\\TeamServiceProvider',
+    55 => 'App\\Providers\\JetstreamServiceProvider',
+    56 => 'App\\Providers\\FortifyServiceProvider',
   ),
   'deferred' => 
   array (

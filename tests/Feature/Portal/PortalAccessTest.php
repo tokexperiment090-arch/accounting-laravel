@@ -38,11 +38,18 @@ class PortalAccessTest extends TestCase
         $this->assertTrue($staff->canAccessPanel(Filament::getPanel('app')));
     }
 
+    private function setPasswordUrl(Customer $customer): string
+    {
+        return URL::temporarySignedRoute('portal.customer.set-password', now()->addHour(), [
+            'id' => $customer->id,
+            'hash' => sha1((string) $customer->password),
+        ]);
+    }
+
     public function test_signed_link_sets_password_and_enables_login(): void
     {
         $customer = Customer::factory()->create();
-
-        $url = URL::temporarySignedRoute('portal.customer.set-password', now()->addHour(), ['id' => $customer->id]);
+        $url = $this->setPasswordUrl($customer);
 
         $this->get($url)->assertOk();
         $this->post($url, ['password' => 'Str0ng-Passw0rd!', 'password_confirmation' => 'Str0ng-Passw0rd!'])
@@ -56,6 +63,23 @@ class PortalAccessTest extends TestCase
         $this->assertTrue(
             auth()->guard('customer')->attempt(['customer_email' => $customer->customer_email, 'password' => 'Str0ng-Passw0rd!'])
         );
+    }
+
+    public function test_link_is_single_use_once_a_password_is_set(): void
+    {
+        $customer = Customer::factory()->create();
+        $url = $this->setPasswordUrl($customer);
+
+        $this->post($url, ['password' => 'Str0ng-Passw0rd!', 'password_confirmation' => 'Str0ng-Passw0rd!'])
+            ->assertRedirect();
+
+        // The same link now carries a stale password-hash → rejected (no takeover).
+        $this->get($url)->assertForbidden();
+        $this->post($url, ['password' => 'Attacker-Pw-99!', 'password_confirmation' => 'Attacker-Pw-99!'])
+            ->assertForbidden();
+
+        $customer->refresh();
+        $this->assertTrue(Hash::check('Str0ng-Passw0rd!', (string) $customer->password));
     }
 
     public function test_expired_or_tampered_link_is_rejected(): void

@@ -373,6 +373,12 @@ parameters:
 			path: app/Filament/App/Pages/ConsolidatedReports.php
 
 		-
+			message: '#^Call to an undefined method App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:allTeams\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Filament/App/Pages/ConsolidatedReports.php
+
+		-
 			message: '#^Cannot call method fill\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -403,7 +409,7 @@ parameters:
 			path: app/Filament/App/Pages/CreateTeam.php
 
 		-
-			message: '#^Parameter \#1 \$user of method App\\Actions\\Jetstream\\CreateTeam\:\:create\(\) expects App\\Models\\User, App\\Models\\User\|null given\.$#'
+			message: '#^Parameter \#1 \$user of method App\\Actions\\Jetstream\\CreateTeam\:\:create\(\) expects App\\Models\\User, App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null given\.$#'
 			identifier: argument.type
 			count: 1
 			path: app/Filament/App/Pages/CreateTeam.php
@@ -445,7 +451,7 @@ parameters:
 			path: app/Filament/App/Pages/EditProfile.php
 
 		-
-			message: '#^Property App\\Filament\\App\\Pages\\EditProfile\:\:\$user \(App\\Models\\User\) does not accept App\\Models\\User\|null\.$#'
+			message: '#^Property App\\Filament\\App\\Pages\\EditProfile\:\:\$user \(App\\Models\\User\) does not accept App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: assign.propertyType
 			count: 1
 			path: app/Filament/App/Pages/EditProfile.php
@@ -457,7 +463,7 @@ parameters:
 			path: app/Filament/App/Pages/EditTeam.php
 
 		-
-			message: '#^Method App\\Filament\\App\\Pages\\EditTeam\:\:user\(\) should return App\\Models\\User but returns App\\Models\\User\|null\.$#'
+			message: '#^Method App\\Filament\\App\\Pages\\EditTeam\:\:user\(\) should return App\\Models\\User but returns App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: return.type
 			count: 1
 			path: app/Filament/App/Pages/EditTeam.php
@@ -470,6 +476,12 @@ parameters:
 
 		-
 			message: '#^Access to an undefined property App\\Filament\\App\\Pages\\NotificationSettings\:\:\$form\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/App/Pages/NotificationSettings.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$notificationPreference\.$#'
 			identifier: property.notFound
 			count: 1
 			path: app/Filament/App/Pages/NotificationSettings.php
@@ -535,7 +547,7 @@ parameters:
 			path: app/Filament/App/Pages/PersonalAccessTokensPage.php
 
 		-
-			message: '#^Property App\\Filament\\App\\Pages\\PersonalAccessTokensPage\:\:\$user \(App\\Models\\User\) does not accept App\\Models\\User\|null\.$#'
+			message: '#^Property App\\Filament\\App\\Pages\\PersonalAccessTokensPage\:\:\$user \(App\\Models\\User\) does not accept App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: assign.propertyType
 			count: 1
 			path: app/Filament/App/Pages/PersonalAccessTokensPage.php
@@ -571,13 +583,13 @@ parameters:
 			path: app/Filament/App/Pages/UpdateProfileInformationPage.php
 
 		-
-			message: '#^Cannot access property \$email on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$email on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Filament/App/Pages/UpdateProfileInformationPage.php
 
 		-
-			message: '#^Cannot access property \$name on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$name on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Filament/App/Pages/UpdateProfileInformationPage.php
@@ -589,7 +601,7 @@ parameters:
 			path: app/Filament/App/Pages/UpdateProfileInformationPage.php
 
 		-
-			message: '#^Cannot call method forceFill\(\) on App\\Models\\User\|null\.$#'
+			message: '#^Cannot call method forceFill\(\) on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: app/Filament/App/Pages/UpdateProfileInformationPage.php
@@ -779,6 +791,12 @@ parameters:
 			identifier: binaryOp.invalid
 			count: 1
 			path: app/Filament/App/Resources/ChartOfAccounts/Pages/ListChartOfAccounts.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:allTeams\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Filament/App/Resources/ConsolidationGroups/ConsolidationGroupResource.php
 
 		-
 			message: '#^Cannot cast mixed to int\.$#'
@@ -1207,7 +1225,7 @@ parameters:
 			path: app/Http/Controllers/Api/BillController.php
 
 		-
-			message: '#^Cannot access property \$current_team_id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$current_team_id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 4
 			path: app/Http/Controllers/Api/BillController.php
@@ -1243,7 +1261,7 @@ parameters:
 			path: app/Http/Controllers/Api/ChartOfAccountController.php
 
 		-
-			message: '#^Cannot access property \$current_team_id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$current_team_id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 3
 			path: app/Http/Controllers/Api/ChartOfAccountController.php
@@ -1279,7 +1297,7 @@ parameters:
 			path: app/Http/Controllers/Api/EstimateController.php
 
 		-
-			message: '#^Cannot access property \$current_team_id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$current_team_id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 4
 			path: app/Http/Controllers/Api/EstimateController.php
@@ -1327,7 +1345,7 @@ parameters:
 			path: app/Http/Controllers/Api/InvoiceController.php
 
 		-
-			message: '#^Cannot access property \$current_team_id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$current_team_id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 4
 			path: app/Http/Controllers/Api/InvoiceController.php
@@ -1399,13 +1417,13 @@ parameters:
 			path: app/Http/Controllers/Api/JournalEntryController.php
 
 		-
-			message: '#^Cannot access property \$current_team_id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$current_team_id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 4
 			path: app/Http/Controllers/Api/JournalEntryController.php
 
 		-
-			message: '#^Cannot access property \$id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Http/Controllers/Api/JournalEntryController.php
@@ -1609,13 +1627,13 @@ parameters:
 			path: app/Http/Controllers/Api/PlaidController.php
 
 		-
-			message: '#^Cannot access property \$current_team_id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$current_team_id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Http/Controllers/Api/PlaidController.php
 
 		-
-			message: '#^Cannot access property \$id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 5
 			path: app/Http/Controllers/Api/PlaidController.php
@@ -1753,14 +1771,20 @@ parameters:
 			path: app/Http/Controllers/Api/QboController.php
 
 		-
-			message: '#^Cannot access property \$current_team_id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$current_team_id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Http/Controllers/Api/QboController.php
 
 		-
-			message: '#^Cannot access property \$id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
+			count: 1
+			path: app/Http/Controllers/Api/QboController.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
 			count: 1
 			path: app/Http/Controllers/Api/QboController.php
 
@@ -1786,6 +1810,12 @@ parameters:
 			message: '#^Access to an undefined property App\\Models\\BankConnection\:\:\$team_id\.$#'
 			identifier: property.notFound
 			count: 5
+			path: app/Http/Controllers/Api/RevolutController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
 			path: app/Http/Controllers/Api/RevolutController.php
 
 		-
@@ -1843,13 +1873,13 @@ parameters:
 			path: app/Http/Controllers/Api/RevolutController.php
 
 		-
-			message: '#^Cannot access property \$current_team_id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$current_team_id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Http/Controllers/Api/RevolutController.php
 
 		-
-			message: '#^Cannot access property \$id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 3
 			path: app/Http/Controllers/Api/RevolutController.php
@@ -1981,13 +2011,13 @@ parameters:
 			path: app/Http/Controllers/Api/SageController.php
 
 		-
-			message: '#^Cannot access property \$current_team_id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$current_team_id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Http/Controllers/Api/SageController.php
 
 		-
-			message: '#^Cannot access property \$id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Http/Controllers/Api/SageController.php
@@ -2005,14 +2035,20 @@ parameters:
 			path: app/Http/Controllers/Api/TransactionController.php
 
 		-
-			message: '#^Cannot access property \$current_team_id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$current_team_id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Http/Controllers/Api/TransactionController.php
 
 		-
-			message: '#^Cannot access property \$id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
+			count: 1
+			path: app/Http/Controllers/Api/TransactionController.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
 			count: 1
 			path: app/Http/Controllers/Api/TransactionController.php
 
@@ -2038,6 +2074,12 @@ parameters:
 			message: '#^Access to an undefined property App\\Models\\BankConnection\:\:\$team_id\.$#'
 			identifier: property.notFound
 			count: 3
+			path: app/Http/Controllers/Api/WiseController.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
 			path: app/Http/Controllers/Api/WiseController.php
 
 		-
@@ -2095,13 +2137,13 @@ parameters:
 			path: app/Http/Controllers/Api/WiseController.php
 
 		-
-			message: '#^Cannot access property \$current_team_id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$current_team_id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Http/Controllers/Api/WiseController.php
 
 		-
-			message: '#^Cannot access property \$id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 3
 			path: app/Http/Controllers/Api/WiseController.php
@@ -2245,13 +2287,13 @@ parameters:
 			path: app/Http/Controllers/Api/XeroController.php
 
 		-
-			message: '#^Cannot access property \$current_team_id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$current_team_id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Http/Controllers/Api/XeroController.php
 
 		-
-			message: '#^Cannot access property \$id on App\\Models\\User\|null\.$#'
+			message: '#^Cannot access property \$id on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: property.nonObject
 			count: 1
 			path: app/Http/Controllers/Api/XeroController.php
@@ -2279,6 +2321,30 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: app/Http/Controllers/LoginController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$password\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Controllers/PortalAccessController.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:notify\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/PortalAccessController.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Http\\RedirectResponse\|Illuminate\\Routing\\Redirector\:\:with\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Controllers/PortalAccessController.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: app/Http/Controllers/PortalAccessController.php
 
 		-
 			message: '#^Access to an undefined property App\\Models\\Team\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Team\>\:\:\$id\.$#'
@@ -2383,13 +2449,13 @@ parameters:
 			path: app/Http/Middleware/RedirectIfAuthenticated.php
 
 		-
-			message: '#^Cannot call method getRoleNames\(\) on App\\Models\\User\|null\.$#'
+			message: '#^Cannot call method getRoleNames\(\) on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: app/Http/Middleware/RedirectIfAuthenticated.php
 
 		-
-			message: '#^Cannot call method hasRole\(\) on App\\Models\\User\|null\.$#'
+			message: '#^Cannot call method hasRole\(\) on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: app/Http/Middleware/RedirectIfAuthenticated.php
@@ -2431,13 +2497,13 @@ parameters:
 			path: app/Http/Middleware/RoleBasedRedirect.php
 
 		-
-			message: '#^Cannot call method getRoleNames\(\) on App\\Models\\User\|null\.$#'
+			message: '#^Cannot call method getRoleNames\(\) on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: app/Http/Middleware/RoleBasedRedirect.php
 
 		-
-			message: '#^Cannot call method hasRole\(\) on App\\Models\\User\|null\.$#'
+			message: '#^Cannot call method hasRole\(\) on App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: app/Http/Middleware/RoleBasedRedirect.php
@@ -2509,9 +2575,27 @@ parameters:
 			path: app/Http/Middleware/ScreeningDataEncryptor.php
 
 		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$currentTeam\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Http/Middleware/TeamsPermission.php
+
+		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
 			identifier: property.notFound
 			count: 2
+			path: app/Http/Middleware/TeamsPermission.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:hasAnyRole\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Http/Middleware/TeamsPermission.php
+
+		-
+			message: '#^Call to an undefined method App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:hasRole\(\)\.$#'
+			identifier: method.notFound
+			count: 1
 			path: app/Http/Middleware/TeamsPermission.php
 
 		-
@@ -2720,6 +2804,12 @@ parameters:
 
 		-
 			message: '#^Access to an undefined property App\\Models\\Account\:\:\$team_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/Account.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$currentTeam\.$#'
 			identifier: property.notFound
 			count: 1
 			path: app/Models/Account.php
@@ -2996,6 +3086,12 @@ parameters:
 
 		-
 			message: '#^Access to an undefined property App\\Models\\BankConnection\:\:\$team_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/BankConnection.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$currentTeam\.$#'
 			identifier: property.notFound
 			count: 1
 			path: app/Models/BankConnection.php
@@ -4981,6 +5077,12 @@ parameters:
 			path: app/Models/InvoiceItem.php
 
 		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$currentTeam\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Models/JournalEntry.php
+
+		-
 			message: '#^Access to an undefined property App\\Models\\JournalEntry\:\:\$lines\.$#'
 			identifier: property.notFound
 			count: 2
@@ -5951,6 +6053,12 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/TimeEntry.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$currentTeam\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/Transaction.php
 
 		-
 			message: '#^Access to an undefined property App\\Models\\Transaction\:\:\$currency\.$#'
@@ -7531,6 +7639,24 @@ parameters:
 			path: app/Notifications/PaymentReminderNotification.php
 
 		-
+			message: '#^Cannot access property \$password on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Notifications/PortalAccessNotification.php
+
+		-
+			message: '#^Cannot call method getKey\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Notifications/PortalAccessNotification.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: app/Notifications/PortalAccessNotification.php
+
+		-
 			message: '#^Access to an undefined property App\\Models\\Invoice\:\:\$invoice_id\.$#'
 			identifier: property.notFound
 			count: 1
@@ -8299,6 +8425,12 @@ parameters:
 			path: app/Services/BudgetService.php
 
 		-
+			message: '#^Method App\\Services\\BudgetService\:\:scopedTeamId\(\) should return int but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Services/BudgetService.php
+
+		-
 			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,App\\Models\\Budget\>\:\:map\(\) contains unresolvable type\.$#'
 			identifier: argument.unresolvableType
 			count: 1
@@ -8507,6 +8639,12 @@ parameters:
 			identifier: nullsafe.neverNull
 			count: 1
 			path: app/Services/ExchangeRateService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$current_team_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/FinancialStatementService.php
 
 		-
 			message: '#^Binary operation "\+" between \(array\|float\|int\) and mixed results in an error\.$#'
@@ -8721,6 +8859,12 @@ parameters:
 		-
 			message: '#^Method App\\Services\\GeneralLedgerService\:\:getTrialBalance\(\) has parameter \$date with no type specified\.$#'
 			identifier: missingType.parameter
+			count: 1
+			path: app/Services/GeneralLedgerService.php
+
+		-
+			message: '#^Method App\\Services\\GeneralLedgerService\:\:scopedTeamId\(\) should return int but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: app/Services/GeneralLedgerService.php
 
@@ -9353,6 +9497,12 @@ parameters:
 			identifier: method.nonObject
 			count: 2
 			path: app/Services/InventoryPostingService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$current_team_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/InventoryService.php
 
 		-
 			message: '#^Access to an undefined property App\\Models\\Transaction\:\:\$id\.$#'

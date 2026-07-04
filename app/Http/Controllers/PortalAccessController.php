@@ -9,6 +9,7 @@ use App\Models\Vendor;
 use App\Notifications\PortalAccessNotification;
 use Filament\Facades\Filament;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Password;
@@ -19,7 +20,7 @@ use Illuminate\Validation\Rules\Password;
  */
 class PortalAccessController extends Controller
 {
-    /** @var array<string, class-string<\Illuminate\Database\Eloquent\Model>> */
+    /** @var array<string, class-string<Model>> */
     private const MODELS = ['customer' => Customer::class, 'vendor' => Vendor::class];
 
     /** Email column per guard (Customer's is non-standard). */
@@ -28,7 +29,8 @@ class PortalAccessController extends Controller
     public function showSetPassword(Request $request, int $id): View
     {
         $guard = $this->guard($request);
-        $this->modelClass($guard)::findOrFail($id);
+        $model = $this->modelClass($guard)::findOrFail($id);
+        $this->assertLinkFresh($request, $model);
 
         return view('portal.set-password', ['action' => $request->fullUrl()]);
     }
@@ -36,9 +38,11 @@ class PortalAccessController extends Controller
     public function setPassword(Request $request, int $id): RedirectResponse
     {
         $guard = $this->guard($request);
+        $model = $this->modelClass($guard)::findOrFail($id);
+        $this->assertLinkFresh($request, $model);
+
         $request->validate(['password' => ['required', 'confirmed', Password::defaults()]]);
 
-        $model = $this->modelClass($guard)::findOrFail($id);
         $model->password = $request->string('password')->value();
         $model->save();
 
@@ -69,6 +73,19 @@ class PortalAccessController extends Controller
         return back()->with('status', 'If that email is on file, a set-password link has been sent.');
     }
 
+    /**
+     * The link carries sha1 of the password as it was when minted. Once a
+     * password is set that hash changes, so a reused or leaked link 403s —
+     * effectively single-use (mirrors Laravel's signed email-verification).
+     */
+    private function assertLinkFresh(Request $request, Model $model): void
+    {
+        abort_unless(
+            hash_equals((string) $request->query('hash'), sha1((string) $model->getAttribute('password'))),
+            403,
+        );
+    }
+
     private function guard(Request $request): string
     {
         $guard = (string) $request->route('guard');
@@ -78,7 +95,7 @@ class PortalAccessController extends Controller
     }
 
     /**
-     * @return class-string<\Illuminate\Database\Eloquent\Model>
+     * @return class-string<Model>
      */
     private function modelClass(string $guard): string
     {
