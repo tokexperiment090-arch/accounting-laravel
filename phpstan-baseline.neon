@@ -211,6 +211,12 @@ parameters:
 			path: app/Console/Commands/ModuleCommand.php
 
 		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: app/Console/Commands/PostPayment.php
+
+		-
 			message: '#^Part \$schedule\-\>getKey\(\) \(mixed\) of encapsed string cannot be cast to string\.$#'
 			identifier: encapsedStringPart.nonString
 			count: 1
@@ -5209,6 +5215,12 @@ parameters:
 			path: app/Models/Invoice.php
 
 		-
+			message: '#^Method App\\Models\\Invoice\:\:payments\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Invoice.php
+
+		-
 			message: '#^Method App\\Models\\Invoice\:\:salesOrder\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -5511,6 +5523,12 @@ parameters:
 		-
 			message: '#^Method App\\Models\\Payment\:\:invoice\(\) has no return type specified\.$#'
 			identifier: missingType.return
+			count: 1
+			path: app/Models/Payment.php
+
+		-
+			message: '#^Method App\\Models\\Payment\:\:journalEntry\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
 			count: 1
 			path: app/Models/Payment.php
 
@@ -10271,6 +10289,48 @@ parameters:
 			identifier: argument.type
 			count: 2
 			path: app/Services/MenuService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Payment\:\:\$invoice\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/PaymentPostingService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Payment\:\:\$team_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/PaymentPostingService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$user_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/PaymentPostingService.php
+
+		-
+			message: '#^Binary operation "\." between ''Payment '' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: app/Services/PaymentPostingService.php
+
+		-
+			message: '#^Cannot call method create\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Services/PaymentPostingService.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: app/Services/PaymentPostingService.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: app/Services/PaymentPostingService.php
 
 		-
 			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
