@@ -211,6 +211,12 @@ parameters:
 			path: app/Console/Commands/ModuleCommand.php
 
 		-
+			message: '#^Part \$schedule\-\>getKey\(\) \(mixed\) of encapsed string cannot be cast to string\.$#'
+			identifier: encapsedStringPart.nonString
+			count: 1
+			path: app/Console/Commands/RecognizeRevenue.php
+
+		-
 			message: '#^Access to an undefined property App\\Models\\Invoice\:\:\$customer\.$#'
 			identifier: property.notFound
 			count: 1
@@ -1109,6 +1115,30 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: app/Filament/App/Resources/ReminderSettings/ReminderSettingResource.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: app/Filament/App/Resources/RevenueSchedules/Pages/CreateRevenueSchedule.php
+
+		-
+			message: '#^Parameter \#1 \$invoice of method App\\Services\\RevenueRecognitionService\:\:createFromInvoice\(\) expects App\\Models\\Invoice, App\\Models\\Invoice\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Invoice\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Filament/App/Resources/RevenueSchedules/Pages/CreateRevenueSchedule.php
+
+		-
+			message: '#^Parameter \#3 \$deferred of method App\\Services\\RevenueRecognitionService\:\:createFromInvoice\(\) expects App\\Models\\Account, App\\Models\\Account\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Account\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Filament/App/Resources/RevenueSchedules/Pages/CreateRevenueSchedule.php
+
+		-
+			message: '#^Parameter \#4 \$revenue of method App\\Services\\RevenueRecognitionService\:\:createFromInvoice\(\) expects App\\Models\\Account, App\\Models\\Account\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Account\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Filament/App/Resources/RevenueSchedules/Pages/CreateRevenueSchedule.php
 
 		-
 			message: '#^Cannot call method calculateTotals\(\) on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
@@ -5963,6 +5993,72 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/ReminderSetting.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$currentTeam\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/RevenueSchedule.php
+
+		-
+			message: '#^Class App\\Models\\RevenueSchedule uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/RevenueSchedule.php
+
+		-
+			message: '#^Method App\\Models\\RevenueSchedule\:\:deferredAccount\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/RevenueSchedule.php
+
+		-
+			message: '#^Method App\\Models\\RevenueSchedule\:\:entries\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/RevenueSchedule.php
+
+		-
+			message: '#^Method App\\Models\\RevenueSchedule\:\:invoice\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/RevenueSchedule.php
+
+		-
+			message: '#^Method App\\Models\\RevenueSchedule\:\:revenueAccount\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/RevenueSchedule.php
+
+		-
+			message: '#^Method App\\Models\\RevenueSchedule\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/RevenueSchedule.php
+
+		-
+			message: '#^Property App\\Models\\RevenueSchedule\:\:\$team_id \(int\<0, max\>\|null\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Models/RevenueSchedule.php
+
+		-
+			message: '#^Class App\\Models\\RevenueScheduleEntry uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/RevenueScheduleEntry.php
+
+		-
+			message: '#^Method App\\Models\\RevenueScheduleEntry\:\:journalEntry\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/RevenueScheduleEntry.php
+
+		-
+			message: '#^Method App\\Models\\RevenueScheduleEntry\:\:schedule\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/RevenueScheduleEntry.php
 
 		-
 			message: '#^Class App\\Models\\SageConnection uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
@@ -10985,6 +11081,60 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: app/Services/ReconciliationService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Invoice\:\:\$team_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/RevenueRecognitionService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$amount\.$#'
+			identifier: property.notFound
+			count: 2
+			path: app/Services/RevenueRecognitionService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$period_number\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/RevenueRecognitionService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$recognition_date\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/RevenueRecognitionService.php
+
+		-
+			message: '#^Binary operation "\." between ''Revenue recognition…'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: app/Services/RevenueRecognitionService.php
+
+		-
+			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: app/Services/RevenueRecognitionService.php
+
+		-
+			message: '#^Cannot access property \$user_id on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Services/RevenueRecognitionService.php
+
+		-
+			message: '#^Cannot call method create\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: app/Services/RevenueRecognitionService.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: app/Services/RevenueRecognitionService.php
 
 		-
 			message: '#^Cannot cast mixed to string\.$#'
