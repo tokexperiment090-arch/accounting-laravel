@@ -8,6 +8,7 @@ use App\Traits\IsTenantModel;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Estimate extends Model
@@ -75,6 +76,11 @@ class Estimate extends Model
     public function invoice()
     {
         return $this->belongsTo(Invoice::class);
+    }
+
+    public function salesOrder(): HasOne
+    {
+        return $this->hasOne(SalesOrder::class, 'estimate_id', 'estimate_id');
     }
 
     // Calculated Attributes

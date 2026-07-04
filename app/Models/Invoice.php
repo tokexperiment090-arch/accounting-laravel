@@ -24,6 +24,7 @@ class Invoice extends Model
     #[\Override]
     protected $fillable = [
         'customer_id',
+        'sales_order_id',
         'vendor_id',
         'invoice_number',
         'invoice_date',
@@ -64,6 +65,11 @@ class Invoice extends Model
     public function vendor()
     {
         return $this->belongsTo(Vendor::class);
+    }
+
+    public function salesOrder()
+    {
+        return $this->belongsTo(SalesOrder::class, 'sales_order_id');
     }
 
     public function approver()
