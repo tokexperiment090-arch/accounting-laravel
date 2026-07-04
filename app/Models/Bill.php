@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Concerns\Approvable;
+use App\Concerns\HasDocuments;
 use App\Concerns\Recurring;
 use App\Traits\IsTenantModel;
 use Carbon\Carbon;
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Bill extends Model
 {
     use Approvable;
+    use HasDocuments;
     use HasFactory, SoftDeletes;
     use IsTenantModel;
     use Recurring;
