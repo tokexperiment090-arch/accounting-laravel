@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Models\Estimate;
+use App\Models\Invoice;
 use App\Models\SalesOrder;
 use Illuminate\Support\Facades\DB;
 
@@ -40,6 +41,43 @@ class SalesOrderService
             }
 
             return $order;
+        });
+    }
+
+    public function convertToInvoice(SalesOrder $order): Invoice
+    {
+        if (in_array($order->status, ['invoiced', 'cancelled'], true)) {
+            throw new \DomainException('This sales order cannot be invoiced.');
+        }
+        if ($order->invoice()->exists()) {
+            throw new \DomainException('This sales order already has an invoice.');
+        }
+
+        return DB::transaction(function () use ($order): Invoice {
+            $invoice = Invoice::create([
+                'customer_id' => $order->customer_id,
+                'sales_order_id' => $order->id,
+                'invoice_date' => today(),
+                'due_date' => today()->addDays(30),
+                'total_amount' => $order->total_amount,
+                'payment_status' => 'pending',
+            ]);
+
+            foreach ($order->items as $item) {
+                $invoice->items()->create([
+                    'account_id' => $item->account_id,
+                    'description' => $item->description,
+                    'quantity' => $item->quantity,
+                    'unit_price' => $item->unit_price,
+                    'amount' => $item->amount,
+                    'tax_amount' => $item->tax_amount,
+                    'tax_rate_id' => $item->tax_rate_id,
+                ]);
+            }
+
+            $order->update(['status' => 'invoiced']);
+
+            return $invoice;
         });
     }
 }
