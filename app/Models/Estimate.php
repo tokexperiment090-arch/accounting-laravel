@@ -182,6 +182,12 @@ class Estimate extends Model
             throw new \Exception('This estimate has already been converted to an invoice.');
         }
 
+        // The estimate may already be flowing through the sales-order path; block
+        // the legacy direct path too, or one estimate ends up with two invoices.
+        if ($this->salesOrder()->exists()) {
+            throw new \Exception('This estimate already has a sales order.');
+        }
+
         // Create invoice
         $invoice = Invoice::create([
             'customer_id' => $this->customer_id,

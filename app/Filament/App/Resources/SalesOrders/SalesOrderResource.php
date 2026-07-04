@@ -61,6 +61,9 @@ class SalesOrderResource extends Resource
                     ->required()
                     ->default(now()),
 
+                // Status is system-managed (set by conversion / cancel), not
+                // hand-editable — else an invoiced order could be flipped back to
+                // draft while a live invoice still points at it.
                 Select::make('status')
                     ->options([
                         'draft' => 'Draft',
@@ -69,7 +72,8 @@ class SalesOrderResource extends Resource
                         'cancelled' => 'Cancelled',
                     ])
                     ->default('draft')
-                    ->required(),
+                    ->disabled()
+                    ->dehydrated(false),
 
                 TextInput::make('subtotal_amount')
                     ->numeric()
@@ -150,6 +154,9 @@ class SalesOrderResource extends Resource
                             Notification::make()->title('Invoice created')->success()->send();
                         } catch (\DomainException $e) {
                             Notification::make()->title($e->getMessage())->danger()->send();
+                        } catch (\Throwable) {
+                            // e.g. a concurrent double-click tripping the unique index.
+                            Notification::make()->title('Could not create the invoice. Please retry.')->danger()->send();
                         }
                     }),
             ])

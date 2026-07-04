@@ -1,10 +1,14 @@
-<?php // src/tests/Feature/SalesOrder/CreateFromEstimateTest.php
+<?php
+
+// src/tests/Feature/SalesOrder/CreateFromEstimateTest.php
 declare(strict_types=1);
+
 namespace Tests\Feature\SalesOrder;
 
 use App\Models\Customer;
 use App\Models\Estimate;
 use App\Models\EstimateItem;
+use App\Models\Invoice;
 use App\Services\SalesOrderService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -25,6 +29,7 @@ class CreateFromEstimateTest extends TestCase
             'estimate_id' => $estimate->estimate_id, 'description' => 'Consulting',
             'quantity' => 2, 'unit_price' => 100, 'amount' => 200, 'tax_amount' => 20,
         ]);
+
         return $estimate;
     }
 
@@ -54,6 +59,17 @@ class CreateFromEstimateTest extends TestCase
     {
         $estimate = $this->acceptedEstimate();
         app(SalesOrderService::class)->createFromEstimate($estimate);
+
+        $this->expectException(\DomainException::class);
+        app(SalesOrderService::class)->createFromEstimate($estimate->fresh());
+    }
+
+    public function test_estimate_already_invoiced_directly_cannot_become_a_sales_order(): void
+    {
+        $estimate = $this->acceptedEstimate();
+        // Simulate the legacy direct estimate->invoice path having already run.
+        $invoice = Invoice::factory()->create();
+        $estimate->update(['invoice_id' => $invoice->id]);
 
         $this->expectException(\DomainException::class);
         app(SalesOrderService::class)->createFromEstimate($estimate->fresh());

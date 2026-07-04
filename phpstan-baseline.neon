@@ -889,6 +889,18 @@ parameters:
 			path: app/Filament/App/Resources/Estimates/EstimateResource.php
 
 		-
+			message: '#^Cannot call method exists\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Filament/App/Resources/Estimates/EstimateResource.php
+
+		-
+			message: '#^Cannot call method salesOrder\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Filament/App/Resources/Estimates/EstimateResource.php
+
+		-
 			message: '#^Trying to invoke mixed but it''s not a callable\.$#'
 			identifier: callable.nonCallable
 			count: 1

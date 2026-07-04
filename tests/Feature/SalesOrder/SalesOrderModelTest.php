@@ -1,5 +1,8 @@
-<?php // src/tests/Feature/SalesOrder/SalesOrderModelTest.php
+<?php
+
+// src/tests/Feature/SalesOrder/SalesOrderModelTest.php
 declare(strict_types=1);
+
 namespace Tests\Feature\SalesOrder;
 
 use App\Models\SalesOrder;
