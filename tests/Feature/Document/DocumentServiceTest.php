@@ -1,8 +1,10 @@
-<?php // src/tests/Feature/Document/DocumentServiceTest.php
+<?php
+
+// src/tests/Feature/Document/DocumentServiceTest.php
 declare(strict_types=1);
+
 namespace Tests\Feature\Document;
 
-use App\Models\Document;
 use App\Models\Invoice;
 use App\Services\DocumentService;
 use Illuminate\Foundation\Testing\RefreshDatabase;

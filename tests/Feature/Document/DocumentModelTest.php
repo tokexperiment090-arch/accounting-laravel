@@ -1,8 +1,9 @@
 <?php
+
 declare(strict_types=1);
+
 namespace Tests\Feature\Document;
 
-use App\Models\Document;
 use App\Models\DocumentVersion;
 use App\Models\Invoice;
 use Illuminate\Foundation\Testing\RefreshDatabase;

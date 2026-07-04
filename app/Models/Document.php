@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Traits\IsTenantModel;
@@ -31,7 +33,18 @@ class Document extends Model
         });
     }
 
-    public function documentable(): MorphTo { return $this->morphTo(); }
-    public function versions(): HasMany { return $this->hasMany(DocumentVersion::class); }
-    public function currentVersion(): HasOne { return $this->hasOne(DocumentVersion::class)->latestOfMany('version_number'); }
+    public function documentable(): MorphTo
+    {
+        return $this->morphTo();
+    }
+
+    public function versions(): HasMany
+    {
+        return $this->hasMany(DocumentVersion::class);
+    }
+
+    public function currentVersion(): HasOne
+    {
+        return $this->hasOne(DocumentVersion::class)->latestOfMany('version_number');
+    }
 }

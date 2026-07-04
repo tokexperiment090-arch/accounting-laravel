@@ -1,5 +1,8 @@
-<?php // src/tests/Feature/Document/DocumentTenancyTest.php
+<?php
+
+// src/tests/Feature/Document/DocumentTenancyTest.php
 declare(strict_types=1);
+
 namespace Tests\Feature\Document;
 
 use App\Models\Invoice;

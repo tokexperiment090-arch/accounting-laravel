@@ -1,5 +1,8 @@
-<?php // src/tests/Feature/Document/BackfillDocumentsTest.php
+<?php
+
+// src/tests/Feature/Document/BackfillDocumentsTest.php
 declare(strict_types=1);
+
 namespace Tests\Feature\Document;
 
 use App\Models\Invoice;

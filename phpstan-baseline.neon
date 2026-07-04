@@ -151,6 +151,12 @@ parameters:
 			path: app/Actions/Socialstream/UpdateConnectedAccount.php
 
 		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: app/Console/Commands/BackfillDocuments.php
+
+		-
 			message: '#^Cannot call method getDescription\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -3343,6 +3349,12 @@ parameters:
 			path: app/Models/Bill.php
 
 		-
+			message: '#^Method App\\Models\\Bill\:\:documents\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\MorphMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Bill.php
+
+		-
 			message: '#^Method App\\Models\\Bill\:\:items\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -3817,6 +3829,12 @@ parameters:
 			path: app/Models/CreditMemo.php
 
 		-
+			message: '#^Method App\\Models\\CreditMemo\:\:documents\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\MorphMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/CreditMemo.php
+
+		-
 			message: '#^Method App\\Models\\CreditMemo\:\:invoice\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -4195,6 +4213,72 @@ parameters:
 			path: app/Models/DepreciationCalculation.php
 
 		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$currentTeam\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/Document.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$team_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/Document.php
+
+		-
+			message: '#^Class App\\Models\\Document uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Document.php
+
+		-
+			message: '#^Method App\\Models\\Document\:\:currentVersion\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Document.php
+
+		-
+			message: '#^Method App\\Models\\Document\:\:documentable\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\MorphTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Document.php
+
+		-
+			message: '#^Method App\\Models\\Document\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Document.php
+
+		-
+			message: '#^Method App\\Models\\Document\:\:versions\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Document.php
+
+		-
+			message: '#^Property App\\Models\\Document\:\:\$team_id \(int\<0, max\>\|null\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Models/Document.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>team_id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Models/Document.php
+
+		-
+			message: '#^Class App\\Models\\DocumentVersion uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/DocumentVersion.php
+
+		-
+			message: '#^Method App\\Models\\DocumentVersion\:\:document\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/DocumentVersion.php
+
+		-
 			message: '#^Class App\\Models\\Employee uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
 			identifier: missingType.generics
 			count: 1
@@ -4335,6 +4419,12 @@ parameters:
 		-
 			message: '#^Method App\\Models\\Estimate\:\:decline\(\) has parameter \$reason with no type specified\.$#'
 			identifier: missingType.parameter
+			count: 1
+			path: app/Models/Estimate.php
+
+		-
+			message: '#^Method App\\Models\\Estimate\:\:documents\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\MorphMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
 			count: 1
 			path: app/Models/Estimate.php
 
@@ -5091,6 +5181,12 @@ parameters:
 		-
 			message: '#^Method App\\Models\\Invoice\:\:customer\(\) has no return type specified\.$#'
 			identifier: missingType.return
+			count: 1
+			path: app/Models/Invoice.php
+
+		-
+			message: '#^Method App\\Models\\Invoice\:\:documents\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\MorphMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
 			count: 1
 			path: app/Models/Invoice.php
 
@@ -8783,6 +8879,48 @@ parameters:
 			identifier: larastan.relationExistence
 			count: 1
 			path: app/Services/ConsolidationService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$path\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/DocumentService.php
+
+		-
+			message: '#^Call to an undefined method Illuminate\\Database\\Eloquent\\Model\:\:documents\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Services/DocumentService.php
+
+		-
+			message: '#^Cannot call method create\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/DocumentService.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: app/Services/DocumentService.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: app/Services/DocumentService.php
+
+		-
+			message: '#^Method App\\Services\\DocumentService\:\:addVersion\(\) should return App\\Models\\DocumentVersion but returns Illuminate\\Database\\Eloquent\\Model\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Services/DocumentService.php
+
+		-
+			message: '#^Parameter \#1 \$paths of method Illuminate\\Filesystem\\FilesystemAdapter\:\:delete\(\) expects array\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: app/Services/DocumentService.php
 
 		-
 			message: '#^Access to an undefined property App\\Models\\ExchangeRate\:\:\$fromCurrency\.$#'

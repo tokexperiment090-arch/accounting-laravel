@@ -1,5 +1,8 @@
-<?php // src/app/Services/DocumentService.php
+<?php
+
+// src/app/Services/DocumentService.php
 declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Models\Document;

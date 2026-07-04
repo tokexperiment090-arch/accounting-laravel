@@ -1,6 +1,10 @@
-<?php // src/app/Console/Commands/BackfillDocuments.php
+<?php
+
+// src/app/Console/Commands/BackfillDocuments.php
 declare(strict_types=1);
+
 namespace App\Console\Commands;
+
 use App\Models\Bill;
 use App\Models\CreditMemo;
 use App\Models\Document;
@@ -13,6 +17,7 @@ class BackfillDocuments extends Command
 {
     #[\Override]
     protected $signature = 'documents:backfill';
+
     #[\Override]
     protected $description = 'Register legacy document_path strings as version-1 documents';
 

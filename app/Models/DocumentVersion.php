@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,5 +18,8 @@ class DocumentVersion extends Model
     #[\Override]
     protected $casts = ['version_number' => 'integer', 'size' => 'integer'];
 
-    public function document(): BelongsTo { return $this->belongsTo(Document::class); }
+    public function document(): BelongsTo
+    {
+        return $this->belongsTo(Document::class);
+    }
 }
