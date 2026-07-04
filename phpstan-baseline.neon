@@ -475,6 +475,30 @@ parameters:
 			path: app/Filament/App/Pages/EditTeam.php
 
 		-
+			message: '#^Access to an undefined property App\\Filament\\App\\Pages\\ForecastComparison\:\:\$form\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/App/Pages/ForecastComparison.php
+
+		-
+			message: '#^Cannot call method fill\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Filament/App/Pages/ForecastComparison.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 2
+			path: app/Filament/App/Pages/ForecastComparison.php
+
+		-
+			message: '#^Method App\\Filament\\App\\Pages\\ForecastComparison\:\:visibleScenarios\(\) should return array\<int, string\> but returns array\<mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Filament/App/Pages/ForecastComparison.php
+
+		-
 			message: '#^Access to an undefined property App\\Filament\\App\\Pages\\NotificationSettings\:\:\$form\.$#'
 			identifier: property.notFound
 			count: 1
@@ -4523,6 +4547,48 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: app/Models/Expense.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$currentTeam\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/ForecastScenario.php
+
+		-
+			message: '#^Class App\\Models\\ForecastScenario uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/ForecastScenario.php
+
+		-
+			message: '#^Method App\\Models\\ForecastScenario\:\:lines\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/ForecastScenario.php
+
+		-
+			message: '#^Method App\\Models\\ForecastScenario\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/ForecastScenario.php
+
+		-
+			message: '#^Property App\\Models\\ForecastScenario\:\:\$team_id \(int\<0, max\>\|null\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Models/ForecastScenario.php
+
+		-
+			message: '#^Class App\\Models\\ForecastScenarioLine uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/ForecastScenarioLine.php
+
+		-
+			message: '#^Method App\\Models\\ForecastScenarioLine\:\:scenario\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/ForecastScenarioLine.php
 
 		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$status\.$#'
@@ -8933,6 +8999,48 @@ parameters:
 			identifier: nullsafe.neverNull
 			count: 1
 			path: app/Services/FinancialStatementService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$current_team_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/ForecastService.php
+
+		-
+			message: '#^Cannot call method avg\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/ForecastService.php
+
+		-
+			message: '#^Cannot call method limit\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/ForecastService.php
+
+		-
+			message: '#^Cannot call method orderBy\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/ForecastService.php
+
+		-
+			message: '#^Cannot call method pluck\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/ForecastService.php
+
+		-
+			message: '#^Cannot cast mixed to float\.$#'
+			identifier: cast.double
+			count: 2
+			path: app/Services/ForecastService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>current_team_id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Services/ForecastService.php
 
 		-
 			message: '#^Cannot call method create\(\) on mixed\.$#'
