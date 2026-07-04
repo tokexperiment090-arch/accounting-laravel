@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Concerns\Approvable;
+use App\Concerns\HasDocuments;
 use App\Concerns\Recurring;
 use App\Traits\IsTenantModel;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -15,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
 class Invoice extends Model
 {
     use Approvable;
+    use HasDocuments;
     use HasFactory;
     use IsTenantModel;
     use Recurring;

@@ -7,6 +7,7 @@ namespace App\Filament\App\Resources\Invoices;
 use App\Filament\App\Resources\Invoices\Pages\CreateInvoice;
 use App\Filament\App\Resources\Invoices\Pages\EditInvoice;
 use App\Filament\App\Resources\Invoices\Pages\ListInvoices;
+use App\Filament\App\Resources\Invoices\RelationManagers\DocumentsRelationManager;
 use App\Models\Invoice;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
@@ -142,7 +143,9 @@ class InvoiceResource extends Resource
     #[\Override]
     public static function getRelations(): array
     {
-        return [];
+        return [
+            DocumentsRelationManager::class,
+        ];
     }
 
     #[\Override]
