@@ -25,6 +25,7 @@ class PurchaseOrder extends Model
         'total_amount',
         'status',
         'notes',
+        'purchase_request_id',
     ];
 
     #[\Override]
@@ -37,6 +38,11 @@ class PurchaseOrder extends Model
     public function supplier()
     {
         return $this->belongsTo(Supplier::class, 'supplier_id');
+    }
+
+    public function purchaseRequest()
+    {
+        return $this->belongsTo(PurchaseRequest::class, 'purchase_request_id');
     }
 
     public function items()
