@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Notifications;
 
 use App\Models\Expense;
+use App\Notifications\Concerns\ResolvesChannels;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -13,6 +14,7 @@ use Illuminate\Notifications\Notification;
 class ExpenseApprovalNotification extends Notification implements ShouldQueue
 {
     use Queueable;
+    use ResolvesChannels;
 
     public function __construct(
         protected Expense $expense,
@@ -21,7 +23,12 @@ class ExpenseApprovalNotification extends Notification implements ShouldQueue
 
     public function via($notifiable): array
     {
-        return ['mail', 'database'];
+        return $this->channelsFor($notifiable);
+    }
+
+    public function toSms($notifiable): string
+    {
+        return "Your expense of {$this->expense->amount} has been {$this->status}.";
     }
 
     public function toMail($notifiable): MailMessage

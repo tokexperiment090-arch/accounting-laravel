@@ -6,6 +6,7 @@ namespace App\Notifications;
 
 use App\Models\ApprovalStep;
 use App\Models\User;
+use App\Notifications\Concerns\ResolvesChannels;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Notification as NotificationFacade;
 class ApprovalRequestedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
+    use ResolvesChannels;
 
     public function __construct(
         protected ApprovalStep $step
@@ -39,7 +41,12 @@ class ApprovalRequestedNotification extends Notification implements ShouldQueue
 
     public function via($notifiable): array
     {
-        return ['mail', 'database'];
+        return $this->channelsFor($notifiable);
+    }
+
+    public function toSms($notifiable): string
+    {
+        return "Approval required for {$this->step->request->approvable_type} #{$this->step->request->approvable_id}.";
     }
 
     public function toMail($notifiable): MailMessage

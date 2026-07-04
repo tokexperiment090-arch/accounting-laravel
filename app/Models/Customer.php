@@ -76,4 +76,9 @@ class Customer extends Authenticatable
             ->sum('total_amount');
         $this->save();
     }
+
+    public function routeNotificationForSms(mixed $notification = null): ?string
+    {
+        return $this->customer_phone;
+    }
 }

@@ -439,6 +439,60 @@ parameters:
 			path: app/Filament/App/Pages/EditTeam.php
 
 		-
+			message: '#^Access to an undefined property App\\Filament\\App\\Pages\\NotificationSettings\:\:\$form\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/App/Pages/NotificationSettings.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$database_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/App/Pages/NotificationSettings.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$mail_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/App/Pages/NotificationSettings.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/App/Pages/NotificationSettings.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$sms_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/App/Pages/NotificationSettings.php
+
+		-
+			message: '#^Cannot call method fill\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Filament/App/Pages/NotificationSettings.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>database_enabled" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Filament/App/Pages/NotificationSettings.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>mail_enabled" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Filament/App/Pages/NotificationSettings.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>sms_enabled" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Filament/App/Pages/NotificationSettings.php
+
+		-
 			message: '#^Cannot call method delete\(\) on Laravel\\Sanctum\\PersonalAccessToken\|null\.$#'
 			identifier: method.nonObject
 			count: 1
@@ -455,6 +509,18 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: app/Filament/App/Pages/PersonalAccessTokensPage.php
+
+		-
+			message: '#^Access to an undefined property App\\Filament\\App\\Pages\\TeamNotificationSettings\:\:\$form\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Filament/App/Pages/TeamNotificationSettings.php
+
+		-
+			message: '#^Cannot call method fill\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Filament/App/Pages/TeamNotificationSettings.php
 
 		-
 			message: '#^Access to an undefined property App\\Filament\\App\\Pages\\UpdateProfileInformationPage\:\:\$form\.$#'
@@ -5953,6 +6019,12 @@ parameters:
 			path: app/Models/Transaction.php
 
 		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/User.php
+
+		-
 			message: '#^Class App\\Models\\User uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
 			identifier: missingType.generics
 			count: 1
@@ -5971,8 +6043,20 @@ parameters:
 			path: app/Models/User.php
 
 		-
+			message: '#^Method App\\Models\\User\:\:notificationPreference\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasOne does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
 			message: '#^Method App\\Models\\User\:\:profilePhotoUrl\(\) return type with generic class Illuminate\\Database\\Eloquent\\Casts\\Attribute does not specify its types\: TGet, TSet$#'
 			identifier: missingType.generics
+			count: 1
+			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\User\:\:routeNotificationForSms\(\) should return string\|null but returns mixed\.$#'
+			identifier: return.type
 			count: 1
 			path: app/Models/User.php
 
@@ -5999,6 +6083,12 @@ parameters:
 			identifier: rules.modelAppends
 			count: 1
 			path: app/Models/User.php
+
+		-
+			message: '#^Method App\\Models\\UserNotificationPreference\:\:user\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/UserNotificationPreference.php
 
 		-
 			message: '#^Class App\\Models\\Vendor uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
@@ -6841,20 +6931,50 @@ parameters:
 			path: app/Modules/Support/ExternalModuleLoader.php
 
 		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$database_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/ApprovalRequestedNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$mail_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/ApprovalRequestedNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/ApprovalRequestedNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$sms_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/ApprovalRequestedNotification.php
+
+		-
 			message: '#^Cannot access property \$approvable_id on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
 			identifier: property.nonObject
-			count: 2
+			count: 3
 			path: app/Notifications/ApprovalRequestedNotification.php
 
 		-
 			message: '#^Cannot access property \$approvable_type on Illuminate\\Database\\Eloquent\\Model\|null\.$#'
 			identifier: property.nonObject
-			count: 2
+			count: 3
 			path: app/Notifications/ApprovalRequestedNotification.php
 
 		-
 			message: '#^Cannot access property \$name on mixed\.$#'
 			identifier: property.nonObject
+			count: 1
+			path: app/Notifications/ApprovalRequestedNotification.php
+
+		-
+			message: '#^Cannot call method routeNotificationFor\(\) on mixed\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: app/Notifications/ApprovalRequestedNotification.php
 
@@ -6872,6 +6992,12 @@ parameters:
 
 		-
 			message: '#^Method App\\Notifications\\ApprovalRequestedNotification\:\:toMail\(\) has parameter \$notifiable with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Notifications/ApprovalRequestedNotification.php
+
+		-
+			message: '#^Method App\\Notifications\\ApprovalRequestedNotification\:\:toSms\(\) has parameter \$notifiable with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: app/Notifications/ApprovalRequestedNotification.php
@@ -6897,29 +7023,125 @@ parameters:
 		-
 			message: '#^Part \$this\-\>step\-\>request\-\>approvable_id \(mixed\) of encapsed string cannot be cast to string\.$#'
 			identifier: encapsedStringPart.nonString
-			count: 1
+			count: 2
 			path: app/Notifications/ApprovalRequestedNotification.php
 
 		-
 			message: '#^Part \$this\-\>step\-\>request\-\>approvable_type \(mixed\) of encapsed string cannot be cast to string\.$#'
 			identifier: encapsedStringPart.nonString
+			count: 2
+			path: app/Notifications/ApprovalRequestedNotification.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>database_enabled" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
 			count: 1
 			path: app/Notifications/ApprovalRequestedNotification.php
 
 		-
-			message: '#^Cannot call method sum\(\) on mixed\.$#'
+			message: '#^Using nullsafe property access "\?\-\>mail_enabled" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Notifications/ApprovalRequestedNotification.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>phone" in empty\(\) is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Notifications/ApprovalRequestedNotification.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>sms_enabled" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Notifications/ApprovalRequestedNotification.php
+
+		-
+			message: '#^Cannot access property \$current_team_id on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Notifications/Channels/SmsChannel.php
+
+		-
+			message: '#^Cannot access property \$team_id on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: app/Notifications/Channels/SmsChannel.php
+
+		-
+			message: '#^Cannot call method routeNotificationFor\(\) on mixed\.$#'
 			identifier: method.nonObject
 			count: 1
+			path: app/Notifications/Channels/SmsChannel.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 2
+			path: app/Notifications/Channels/SmsChannel.php
+
+		-
+			message: '#^Method App\\Notifications\\Channels\\SmsChannel\:\:resolveTeam\(\) should return App\\Models\\Team\|null but returns App\\Models\\Team\|Illuminate\\Database\\Eloquent\\Collection\<int, App\\Models\\Team\>\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: app/Notifications/Channels/SmsChannel.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$database_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/CollectionNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$mail_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/CollectionNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/CollectionNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$sms_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/CollectionNotification.php
+
+		-
+			message: '#^Cannot call method routeNotificationFor\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Notifications/CollectionNotification.php
+
+		-
+			message: '#^Cannot call method sum\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 2
 			path: app/Notifications/CollectionNotification.php
 
 		-
 			message: '#^Cannot call method where\(\) on mixed\.$#'
 			identifier: method.nonObject
+			count: 2
+			path: app/Notifications/CollectionNotification.php
+
+		-
+			message: '#^Cannot cast mixed to float\.$#'
+			identifier: cast.double
 			count: 1
 			path: app/Notifications/CollectionNotification.php
 
 		-
 			message: '#^Method App\\Notifications\\CollectionNotification\:\:toMail\(\) has parameter \$notifiable with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Notifications/CollectionNotification.php
+
+		-
+			message: '#^Method App\\Notifications\\CollectionNotification\:\:toSms\(\) has parameter \$notifiable with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: app/Notifications/CollectionNotification.php
@@ -6943,8 +7165,62 @@ parameters:
 			path: app/Notifications/CollectionNotification.php
 
 		-
+			message: '#^Using nullsafe property access "\?\-\>database_enabled" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Notifications/CollectionNotification.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>mail_enabled" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Notifications/CollectionNotification.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>phone" in empty\(\) is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Notifications/CollectionNotification.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>sms_enabled" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Notifications/CollectionNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$database_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/ExpenseApprovalNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$mail_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/ExpenseApprovalNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/ExpenseApprovalNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$sms_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/ExpenseApprovalNotification.php
+
+		-
 			message: '#^Cannot access property \$name on mixed\.$#'
 			identifier: property.nonObject
+			count: 1
+			path: app/Notifications/ExpenseApprovalNotification.php
+
+		-
+			message: '#^Cannot call method routeNotificationFor\(\) on mixed\.$#'
+			identifier: method.nonObject
 			count: 1
 			path: app/Notifications/ExpenseApprovalNotification.php
 
@@ -6962,6 +7238,12 @@ parameters:
 
 		-
 			message: '#^Method App\\Notifications\\ExpenseApprovalNotification\:\:toMail\(\) has parameter \$notifiable with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Notifications/ExpenseApprovalNotification.php
+
+		-
+			message: '#^Method App\\Notifications\\ExpenseApprovalNotification\:\:toSms\(\) has parameter \$notifiable with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: app/Notifications/ExpenseApprovalNotification.php
@@ -6985,6 +7267,108 @@ parameters:
 			path: app/Notifications/ExpenseApprovalNotification.php
 
 		-
+			message: '#^Using nullsafe property access "\?\-\>database_enabled" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Notifications/ExpenseApprovalNotification.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>mail_enabled" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Notifications/ExpenseApprovalNotification.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>phone" in empty\(\) is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Notifications/ExpenseApprovalNotification.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>sms_enabled" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Notifications/ExpenseApprovalNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$database_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/ImportFailedNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$mail_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/ImportFailedNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/ImportFailedNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$sms_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/ImportFailedNotification.php
+
+		-
+			message: '#^Cannot call method routeNotificationFor\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Notifications/ImportFailedNotification.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: app/Notifications/ImportFailedNotification.php
+
+		-
+			message: '#^Method App\\Notifications\\ImportFailedNotification\:\:toArray\(\) has parameter \$notifiable with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Notifications/ImportFailedNotification.php
+
+		-
+			message: '#^Method App\\Notifications\\ImportFailedNotification\:\:toMail\(\) has parameter \$notifiable with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Notifications/ImportFailedNotification.php
+
+		-
+			message: '#^Method App\\Notifications\\ImportFailedNotification\:\:via\(\) has parameter \$notifiable with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Notifications/ImportFailedNotification.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>database_enabled" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Notifications/ImportFailedNotification.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>mail_enabled" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Notifications/ImportFailedNotification.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>phone" in empty\(\) is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Notifications/ImportFailedNotification.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>sms_enabled" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Notifications/ImportFailedNotification.php
+
+		-
 			message: '#^Access to an undefined property App\\Models\\Invoice\:\:\$customer\.$#'
 			identifier: property.notFound
 			count: 1
@@ -6994,6 +7378,30 @@ parameters:
 			message: '#^Access to an undefined property App\\Models\\Invoice\:\:\$invoice_id\.$#'
 			identifier: property.notFound
 			count: 3
+			path: app/Notifications/PaymentReminderNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$database_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/PaymentReminderNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$mail_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/PaymentReminderNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Notifications/PaymentReminderNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$sms_enabled\.$#'
+			identifier: property.notFound
+			count: 1
 			path: app/Notifications/PaymentReminderNotification.php
 
 		-
@@ -7027,7 +7435,19 @@ parameters:
 			path: app/Notifications/PaymentReminderNotification.php
 
 		-
+			message: '#^Cannot call method routeNotificationFor\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Notifications/PaymentReminderNotification.php
+
+		-
 			message: '#^Method App\\Notifications\\PaymentReminderNotification\:\:toMail\(\) has parameter \$notifiable with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: app/Notifications/PaymentReminderNotification.php
+
+		-
+			message: '#^Method App\\Notifications\\PaymentReminderNotification\:\:toSms\(\) has parameter \$notifiable with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
 			path: app/Notifications/PaymentReminderNotification.php
@@ -7041,6 +7461,30 @@ parameters:
 		-
 			message: '#^Method App\\Notifications\\PaymentReminderNotification\:\:via\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
+			count: 1
+			path: app/Notifications/PaymentReminderNotification.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>database_enabled" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Notifications/PaymentReminderNotification.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>mail_enabled" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Notifications/PaymentReminderNotification.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>phone" in empty\(\) is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: app/Notifications/PaymentReminderNotification.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>sms_enabled" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
 			count: 1
 			path: app/Notifications/PaymentReminderNotification.php
 

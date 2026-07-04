@@ -9,6 +9,7 @@ use App\Filament\App\Resources\BankStatements\Pages\EditBankStatement;
 use App\Filament\App\Resources\BankStatements\Pages\ListBankStatements;
 use App\Models\BankStatement;
 use App\Modules\Reconciliation\ReconciliationModule;
+use App\Notifications\ImportFailedNotification;
 use App\Services\BankStatementImportService;
 use App\Services\ReconciliationService;
 use Exception;
@@ -222,6 +223,8 @@ class BankStatementResource extends Resource
                                     ->body($e->getMessage())
                                     ->danger()
                                     ->send();
+
+                                auth()->user()?->notify(new ImportFailedNotification($record, $e->getMessage()));
                             }
                         }
                     }),
