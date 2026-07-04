@@ -54,6 +54,7 @@ class ApprovalRuleResource extends Resource
             'Bill' => 'Bill',
             'Expense' => 'Expense',
             'JournalEntry' => 'Journal Entry',
+            'PurchaseRequest' => 'Purchase Request',
         ];
     }
 
