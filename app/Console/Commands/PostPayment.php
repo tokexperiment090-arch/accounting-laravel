@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Console\Commands;
@@ -25,8 +26,10 @@ class PostPayment extends Command
             return self::FAILURE;
         }
 
+        $id = (int) $payment->getKey();
+
         if ($payment->journal_entry_id !== null) {
-            $this->info("Payment {$payment->getKey()} already posted (entry {$payment->journal_entry_id}); skipped.");
+            $this->info("Payment {$id} already posted (entry {$payment->journal_entry_id}); skipped.");
 
             return self::SUCCESS;
         }
@@ -39,7 +42,7 @@ class PostPayment extends Command
             return self::FAILURE;
         }
 
-        $this->info("Posted payment {$payment->getKey()} to ledger (entry {$entry->id}).");
+        $this->info("Posted payment {$id} to ledger (entry {$entry->id}).");
 
         return self::SUCCESS;
     }

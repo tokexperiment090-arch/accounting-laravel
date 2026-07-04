@@ -82,7 +82,10 @@ class PaymentPostingService
             return;
         }
 
-        $paid = (float) $invoice->payments()->sum('payment_amount');
+        // Only GL-posted payments count toward status, so it tracks the ledger's
+        // AR balance — a merely-recorded (e.g. QBO-synced) unposted payment must not
+        // flip the invoice to paid while its Dr Cash / Cr AR entry never ran.
+        $paid = (float) $invoice->payments()->whereNotNull('journal_entry_id')->sum('payment_amount');
         $total = (float) $invoice->total_amount;
 
         if ($total > 0.0 && $paid >= $total) {

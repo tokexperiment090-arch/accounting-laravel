@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Tests\Feature\PaymentPosting;
@@ -105,5 +106,18 @@ class PostPaymentTest extends TestCase
 
         $this->expectException(RuntimeException::class);
         app(PaymentPostingService::class)->post($payment);
+    }
+
+    public function test_status_counts_only_posted_payments(): void
+    {
+        [$team, $invoice] = $this->provisioned(500);
+        // A merely-recorded (unposted) payment for the remainder — must NOT count.
+        $this->payment($team, $invoice, 300);
+        $posted = $this->payment($team, $invoice, 200);
+
+        app(PaymentPostingService::class)->post($posted);
+
+        // Only the posted 200 counts against the 500 total -> partial, not paid.
+        $this->assertSame('partial', $invoice->fresh()->payment_status);
     }
 }
