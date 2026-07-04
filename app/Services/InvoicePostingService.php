@@ -23,7 +23,9 @@ class InvoicePostingService
     public function post(Invoice $invoice): JournalEntry
     {
         if ($invoice->journal_entry_id !== null) {
-            return $invoice->journalEntry; // idempotent — already posted
+            $existing = $invoice->journalEntry;
+
+            return $existing instanceof JournalEntry ? $existing : throw new RuntimeException('Invoice linked to a missing journal entry.');
         }
 
         $teamId = (int) $invoice->team_id;
@@ -31,12 +33,23 @@ class InvoicePostingService
 
         $schedule = RevenueSchedule::where('invoice_id', $invoice->getKey())->first();
         $credit = $schedule instanceof RevenueSchedule
-            ? $this->resolveById((int) $schedule->deferred_account_id)
+            ? $this->resolveById($teamId, (int) $schedule->deferred_account_id)
             : $this->resolveByNumber($teamId, 4000);
 
+        // ponytail: RevenueSchedule.total_amount is frozen at schedule-creation time;
+        // if line items change between scheduling and posting, this posts the invoice's
+        // current total while the schedule still recognizes the frozen amount, leaving
+        // a residual in Deferred Revenue. Accepted for this slice.
         $amount = $invoice->total_amount;
 
         return DB::transaction(function () use ($invoice, $receivable, $credit, $amount, $teamId, $schedule): JournalEntry {
+            $locked = Invoice::whereKey($invoice->getKey())->lockForUpdate()->first();
+            if ($locked instanceof Invoice && $locked->journal_entry_id !== null) {
+                $existing = $locked->journalEntry;
+
+                return $existing instanceof JournalEntry ? $existing : throw new RuntimeException('Invoice linked to a missing journal entry.');
+            }
+
             $entry = new JournalEntry;
             // team_id + user_id are NOT fillable and there is no auth() here; set
             // them explicitly so the entry is team-scoped (never default team 1)
@@ -47,7 +60,7 @@ class InvoicePostingService
                 'reference_number' => (string) $invoice->getKey(),
                 'memo' => 'Invoice '.$invoice->invoice_number,
                 'team_id' => $teamId,
-                'user_id' => $invoice->team->user_id,
+                'user_id' => $invoice->team?->user_id,
             ])->save();
 
             $entry->lines()->create([
@@ -81,11 +94,11 @@ class InvoicePostingService
         return $account;
     }
 
-    private function resolveById(int $id): Account
+    private function resolveById(int $teamId, int $id): Account
     {
-        $account = Account::find($id);
+        $account = Account::where('team_id', $teamId)->where('id', $id)->first();
         if (! $account instanceof Account) {
-            throw new RuntimeException("Revenue-schedule account {$id} not found.");
+            throw new RuntimeException("Revenue-schedule account {$id} not found for team {$teamId}.");
         }
 
         return $account;

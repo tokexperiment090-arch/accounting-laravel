@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature;
 
-use App\Models\Account;
 use App\Models\Invoice;
-use App\Models\User;
 use App\Services\InvoicePostingService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
