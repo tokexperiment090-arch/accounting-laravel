@@ -81,4 +81,22 @@ class BillingServiceTest extends TestCase
 
         $this->assertSame(120, $count); // capped
     }
+
+    public function test_resume_after_pause_does_not_backbill_the_paused_window(): void
+    {
+        // Sub due monthly from 2026-03-15; today is 2026-06-15 (set in setUp).
+        $sub = $this->activeSub('active', '2026-06-15'); // one cycle due now
+        $service = app(SubscriptionBillingService::class);
+        $this->assertSame(1, $service->generateDueInvoices($sub)); // bills 06-15, next -> 07-15
+
+        $sub->pause();
+        Carbon::setTestNow('2026-10-15'); // 3 cycles elapse while paused
+        $this->assertSame(0, $service->generateDueInvoices($sub->fresh())); // paused: nothing
+
+        $sub->fresh()->resume();
+        // After resume, next_billing_date fast-forwarded to today (2026-10-15), NOT stuck at 07-15.
+        $billed = $service->generateDueInvoices($sub->fresh());
+        $this->assertSame(1, $billed); // only the current cycle, not the 3-month backlog
+        $this->assertSame(2, Invoice::where('customer_id', $sub->customer_id)->count());
+    }
 }

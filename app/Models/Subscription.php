@@ -39,6 +39,15 @@ class Subscription extends Model
     public function plan(): BelongsTo { return $this->belongsTo(Plan::class); }
 
     public function pause(): void { $this->update(['status' => 'paused']); }
-    public function resume(): void { $this->update(['status' => 'active']); }
+
+    public function resume(): void
+    {
+        $next = $this->next_billing_date;
+        if ($next !== null && $next->isPast()) {
+            $next = today();
+        }
+        $this->update(['status' => 'active', 'next_billing_date' => $next]);
+    }
+
     public function cancel(): void { $this->update(['status' => 'cancelled', 'cancelled_at' => now()]); }
 }
