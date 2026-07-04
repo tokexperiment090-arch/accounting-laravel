@@ -23,10 +23,21 @@ class Payment extends Model
         'payment_amount',
         'qbo_id',
         'qbo_sync_token',
+        'journal_entry_id',
+    ];
+
+    protected $casts = [
+        'payment_amount' => 'decimal:2',
+        'payment_date' => 'date',
     ];
 
     public function invoice()
     {
         return $this->belongsTo(Invoice::class, 'invoice_id');
+    }
+
+    public function journalEntry(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(JournalEntry::class);
     }
 }

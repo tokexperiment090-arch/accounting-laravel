@@ -8,12 +8,15 @@ use App\Filament\App\Resources\Payments\Pages\CreatePayment;
 use App\Filament\App\Resources\Payments\Pages\EditPayment;
 use App\Filament\App\Resources\Payments\Pages\ListPayments;
 use App\Models\Payment;
+use App\Services\PaymentPostingService;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
@@ -65,6 +68,26 @@ class PaymentResource extends Resource
             ])
             ->recordActions([
                 EditAction::make(),
+                Action::make('postToLedger')
+                    ->label('Post to ledger')
+                    ->icon('heroicon-o-book-open')
+                    ->requiresConfirmation()
+                    ->visible(fn (Payment $record): bool => $record->journal_entry_id === null)
+                    ->action(function (Payment $record): void {
+                        try {
+                            $entry = app(PaymentPostingService::class)->post($record);
+                            Notification::make()
+                                ->title("Posted to ledger (entry {$entry->id}).")
+                                ->success()
+                                ->send();
+                        } catch (\RuntimeException $e) {
+                            Notification::make()
+                                ->title('Cannot post payment')
+                                ->body($e->getMessage())
+                                ->danger()
+                                ->send();
+                        }
+                    }),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
