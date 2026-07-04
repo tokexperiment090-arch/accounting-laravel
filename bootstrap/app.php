@@ -83,5 +83,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->command('invoices:send-reminders')->daily();
         $schedule->job(new EscalateApprovalsJob())->daily();
         $schedule->command('documents:prune')->daily();
+        $schedule->command('subscriptions:process')->daily()->withoutOverlapping();
     })
     ->create();
