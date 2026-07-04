@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\App\Resources\ChartOfAccounts\Pages;
 
 use App\Filament\App\Resources\ChartOfAccounts\ChartOfAccountsResource;
+use App\Models\Team;
 use App\Services\AccountCsvService;
 use App\Services\TenantProvisioningService;
 use Filament\Actions\Action;
@@ -40,7 +41,11 @@ class ListChartOfAccounts extends ListRecords
             ->requiresConfirmation()
             ->modalDescription('Create a standard chart of accounts for this team. Skipped if accounts already exist.')
             ->action(function (TenantProvisioningService $service): void {
-                $count = $service->provisionChartOfAccounts(Filament::getTenant());
+                $tenant = Filament::getTenant();
+                if (! $tenant instanceof Team) {
+                    return;
+                }
+                $count = $service->provisionChartOfAccounts($tenant);
                 Notification::make()
                     ->title($count > 0 ? "Provisioned {$count} accounts." : 'Chart already exists; nothing added.')
                     ->success()
