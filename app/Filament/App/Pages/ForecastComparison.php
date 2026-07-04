@@ -49,7 +49,9 @@ class ForecastComparison extends Page
      */
     public function visibleScenarios(): array
     {
-        return ForecastScenario::where('team_id', Filament::getTenant()?->getKey())->pluck('name', 'id')->all();
+        // -1 sentinel (not null) so a tenantless caller gets an empty set rather
+        // than leaking team_id IS NULL rows — the repo-wide convention.
+        return ForecastScenario::where('team_id', Filament::getTenant()?->getKey() ?? -1)->pluck('name', 'id')->all();
     }
 
     public function form(Schema $schema): Schema
@@ -62,6 +64,7 @@ class ForecastComparison extends Page
                     ->required(),
                 TextInput::make('periods')
                     ->numeric()
+                    ->minValue(1)
                     ->default(3)
                     ->required(),
             ])
@@ -95,6 +98,13 @@ class ForecastComparison extends Page
         $scenario = ForecastScenario::findOrFail($scenarioId);
         $periods = (int) ($data['periods'] ?? 3);
 
-        $this->result = app(ForecastService::class)->compare($periods, $scenario);
+        // Baseline MUST use the same team as the scenario dropdown (the active
+        // tenant) — not auth()->current_team_id, which can drift out of sync and
+        // would render one team's actuals under another team's label.
+        $this->result = app(ForecastService::class)->compare(
+            $periods,
+            $scenario,
+            (int) (Filament::getTenant()?->getKey() ?? -1),
+        );
     }
 }

@@ -1,5 +1,8 @@
-<?php // src/app/Services/ForecastService.php
+<?php
+
+// src/app/Services/ForecastService.php
 declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Models\Account;
@@ -23,6 +26,9 @@ class ForecastService
             foreach ($accounts as $account) {
                 $avg = $account->transactions()
                     ->orderBy('transaction_date', 'desc')
+                    // Deterministic tiebreaker: same-date rows must resolve consistently,
+                    // else which 12 rows the LIMIT keeps varies across runs/engines.
+                    ->orderBy('transaction_id', 'desc')
                     ->limit(12)
                     ->pluck('amount')
                     ->avg();

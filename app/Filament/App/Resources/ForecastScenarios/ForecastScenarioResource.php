@@ -46,6 +46,9 @@ class ForecastScenarioResource extends Resource
                                 'cost_of_goods_sold' => 'Cost of Goods Sold',
                                 'expense' => 'Expense',
                             ])
+                            // One line per type — a duplicate type would be silently
+                            // dropped by the pluck() keyed on account_type at apply time.
+                            ->distinct()
                             ->required(),
                         TextInput::make('adjustment_pct')
                             ->numeric()
