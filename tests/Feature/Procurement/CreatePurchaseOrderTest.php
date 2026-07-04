@@ -1,5 +1,8 @@
-<?php // src/tests/Feature/Procurement/CreatePurchaseOrderTest.php
+<?php
+
+// src/tests/Feature/Procurement/CreatePurchaseOrderTest.php
 declare(strict_types=1);
+
 namespace Tests\Feature\Procurement;
 
 use App\Models\PaymentTerm;
@@ -50,6 +53,7 @@ class CreatePurchaseOrderTest extends TestCase
             'purchase_request_id' => $request->id, 'description' => 'Steel',
             'quantity' => 3, 'unit_price' => 100, 'total_price' => 300,
         ]);
+
         return $request;
     }
 
@@ -65,6 +69,22 @@ class CreatePurchaseOrderTest extends TestCase
         $this->assertSame($this->teamId, (int) $po->team_id);
         $this->assertCount(1, $po->items);
         $this->assertSame('Steel', $po->items->first()->description);
+    }
+
+    public function test_line_total_is_derived_and_carried_to_the_purchase_order(): void
+    {
+        $request = $this->approvedRequest();
+        // A UI-created line omits total_price (the form doesn't capture it).
+        PurchaseRequestItem::create([
+            'purchase_request_id' => $request->id, 'description' => 'Bolts',
+            'quantity' => 4, 'unit_price' => 25,
+        ]);
+
+        $po = app(ProcurementService::class)->createPurchaseOrderFromRequest($request);
+
+        $bolts = $po->items->firstWhere('description', 'Bolts');
+        // 4 * 25 = 100, not the default 0.
+        $this->assertSame('100.00', (string) $bolts->total_price);
     }
 
     public function test_unapproved_request_is_rejected(): void

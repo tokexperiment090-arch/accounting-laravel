@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,5 +24,23 @@ class PurchaseRequestItem extends Model
         'total_price' => 'decimal:2',
     ];
 
-    public function purchaseRequest(): BelongsTo { return $this->belongsTo(PurchaseRequest::class); }
+    #[\Override]
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        // The create form captures quantity + unit_price but not the line total, so
+        // derive it when absent — otherwise items save with total_price = 0 and that
+        // zero propagates into the converted purchase order's line items.
+        static::saving(function (PurchaseRequestItem $item): void {
+            if (empty($item->total_price)) {
+                $item->total_price = (float) $item->quantity * (float) $item->unit_price;
+            }
+        });
+    }
+
+    public function purchaseRequest(): BelongsTo
+    {
+        return $this->belongsTo(PurchaseRequest::class);
+    }
 }
