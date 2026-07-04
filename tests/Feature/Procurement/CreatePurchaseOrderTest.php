@@ -6,6 +6,8 @@ use App\Models\PaymentTerm;
 use App\Models\PurchaseRequest;
 use App\Models\PurchaseRequestItem;
 use App\Models\Supplier;
+use App\Models\Team;
+use App\Models\User;
 use App\Services\ProcurementService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -14,9 +16,16 @@ class CreatePurchaseOrderTest extends TestCase
 {
     use RefreshDatabase;
 
+    private int $teamId;
 
     private function approvedRequest(): PurchaseRequest
     {
+        // purchase_orders.team_id has a real FK to teams — use a real team so the
+        // converted PO inserts under FK enforcement (never disable FKs to pass).
+        $user = User::factory()->create();
+        $team = Team::forceCreate(['user_id' => $user->id, 'name' => 'Acme', 'personal_team' => false]);
+        $this->teamId = $team->id;
+
         $term = PaymentTerm::create([
             'payment_term_name' => 'Net 30',
             'payment_term_description' => 'Net 30 days',
@@ -35,7 +44,7 @@ class CreatePurchaseOrderTest extends TestCase
         $request = PurchaseRequest::create([
             'supplier_id' => $supplier->supplier_id,
             'request_date' => '2026-07-01', 'total_amount' => 300,
-            'status' => 'draft', 'approval_status' => 'approved', 'team_id' => 7,
+            'status' => 'draft', 'approval_status' => 'approved', 'team_id' => $team->id,
         ]);
         PurchaseRequestItem::create([
             'purchase_request_id' => $request->id, 'description' => 'Steel',
@@ -53,7 +62,7 @@ class CreatePurchaseOrderTest extends TestCase
         $this->assertSame('300.00', (string) $po->total_amount);
         $this->assertSame('draft', $po->status);
         $this->assertNotEmpty($po->po_number);
-        $this->assertSame(7, (int) $po->team_id);
+        $this->assertSame($this->teamId, (int) $po->team_id);
         $this->assertCount(1, $po->items);
         $this->assertSame('Steel', $po->items->first()->description);
     }
