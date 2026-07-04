@@ -1,4 +1,4 @@
-<?php // src/app/Console/Commands/RecognizeRevenue.php
+<?php
 declare(strict_types=1);
 namespace App\Console\Commands;
 use App\Models\RevenueSchedule;
@@ -16,7 +16,12 @@ class RecognizeRevenue extends Command
     {
         $total = 0;
         RevenueSchedule::where('status', 'active')->each(function (RevenueSchedule $schedule) use (&$total, $service): void {
-            $total += $service->recognizeDue($schedule);
+            try {
+                $total += $service->recognizeDue($schedule);
+            } catch (\Throwable $e) {
+                report($e);
+                $this->error("Schedule #{$schedule->getKey()} skipped: {$e->getMessage()}");
+            }
         });
         $this->info("Recognised {$total} revenue period(s).");
     }

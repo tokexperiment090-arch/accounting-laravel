@@ -1,4 +1,4 @@
-<?php // src/app/Services/RevenueRecognitionService.php
+<?php
 declare(strict_types=1);
 namespace App\Services;
 
@@ -18,6 +18,9 @@ class RevenueRecognitionService
         }
         if (RevenueSchedule::where('invoice_id', $invoice->getKey())->exists()) {
             throw new InvalidArgumentException('A revenue schedule already exists for this invoice.');
+        }
+        if ($deferred->is($revenue)) {
+            throw new InvalidArgumentException('Deferred and revenue accounts must be different.');
         }
 
         $total = (float) $invoice->total_amount;

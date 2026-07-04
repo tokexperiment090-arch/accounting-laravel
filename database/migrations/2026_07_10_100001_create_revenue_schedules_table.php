@@ -1,4 +1,4 @@
-<?php // 2026_07_10_100001_create_revenue_schedules_table.php
+<?php
 declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,7 +14,7 @@ return new class extends Migration {
             $t->foreignId('deferred_account_id')->constrained('accounts');
             $t->foreignId('revenue_account_id')->constrained('accounts');
             $t->string('status')->default('active'); // active, completed, cancelled
-            $t->foreignId('team_id')->nullable();
+            $t->foreignId('team_id')->nullable()->constrained();
             $t->timestamps();
         });
     }

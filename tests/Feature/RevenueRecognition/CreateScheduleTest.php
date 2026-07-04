@@ -1,4 +1,4 @@
-<?php // src/tests/Feature/RevenueRecognition/CreateScheduleTest.php
+<?php
 declare(strict_types=1);
 namespace Tests\Feature\RevenueRecognition;
 
@@ -52,5 +52,13 @@ class CreateScheduleTest extends TestCase
 
         $this->expectException(InvalidArgumentException::class);
         $service->createFromInvoice($invoice->fresh(), 5, $deferred, $revenue); // second schedule for same invoice
+    }
+
+    public function test_rejects_same_deferred_and_revenue_account(): void
+    {
+        [$invoice, $deferred] = $this->fixtures(500.00);
+
+        $this->expectException(InvalidArgumentException::class);
+        app(RevenueRecognitionService::class)->createFromInvoice($invoice, 5, $deferred, $deferred);
     }
 }

@@ -1,4 +1,4 @@
-<?php // src/tests/Feature/RevenueRecognition/RevenueScheduleTenancyTest.php
+<?php
 declare(strict_types=1);
 namespace Tests\Feature\RevenueRecognition;
 
