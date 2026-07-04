@@ -34,7 +34,7 @@ class Client
     }
 
     /**
-     * @param array<string, mixed> $options
+     * @param  array<string, mixed>  $options
      * @return array<mixed>
      */
     public function request(string $method, string $path, array $options = []): array

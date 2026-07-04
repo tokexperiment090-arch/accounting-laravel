@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Liberu\AccountingSdk\Resources;
@@ -10,7 +11,7 @@ class CrudResource
     public function __construct(private Client $client, private string $path) {}
 
     /**
-     * @param array<string, mixed> $query
+     * @param  array<string, mixed>  $query
      * @return array<mixed>
      */
     public function list(array $query = []): array
@@ -25,7 +26,7 @@ class CrudResource
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      * @return array<mixed>
      */
     public function create(array $data): array
@@ -34,7 +35,7 @@ class CrudResource
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      * @return array<mixed>
      */
     public function update(int|string $id, array $data): array

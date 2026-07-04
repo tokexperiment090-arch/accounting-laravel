@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Liberu\AccountingSdk\Resources;
@@ -10,7 +11,7 @@ class GeneralLedger
     public function __construct(private Client $client) {}
 
     /**
-     * @param array<string, mixed> $query
+     * @param  array<string, mixed>  $query
      * @return array<mixed>
      */
     public function trialBalance(array $query = []): array
@@ -19,7 +20,7 @@ class GeneralLedger
     }
 
     /**
-     * @param array<string, mixed> $query
+     * @param  array<string, mixed>  $query
      * @return array<mixed>
      */
     public function balances(array $query = []): array
