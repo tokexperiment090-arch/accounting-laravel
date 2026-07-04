@@ -23,6 +23,7 @@ class JournalEntry extends Model
         'reference_number',
         'memo',
         'entry_type',
+        'counterparty_team_id',
         'approval_status',
         'rejection_reason',
     ];
@@ -94,6 +95,11 @@ class JournalEntry extends Model
     public function lines()
     {
         return $this->hasMany(JournalEntryLine::class);
+    }
+
+    public function counterpartyTeam()
+    {
+        return $this->belongsTo(Team::class, 'counterparty_team_id');
     }
 
     public function approvalAmount(): float
