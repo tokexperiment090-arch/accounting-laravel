@@ -5563,6 +5563,36 @@ parameters:
 			path: app/Models/Payroll.php
 
 		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$currentTeam\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/Plan.php
+
+		-
+			message: '#^Class App\\Models\\Plan uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Plan.php
+
+		-
+			message: '#^Method App\\Models\\Plan\:\:subscriptions\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\HasMany does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Plan.php
+
+		-
+			message: '#^Method App\\Models\\Plan\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Plan.php
+
+		-
+			message: '#^Property App\\Models\\Plan\:\:\$team_id \(int\<0, max\>\|null\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Models/Plan.php
+
+		-
 			message: '#^Class App\\Models\\Project uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
 			identifier: missingType.generics
 			count: 1
@@ -6197,6 +6227,42 @@ parameters:
 			identifier: class.notFound
 			count: 1
 			path: app/Models/SalesReceiptItem.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Customer\|App\\Models\\User\|App\\Models\\Vendor\:\:\$currentTeam\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Models/Subscription.php
+
+		-
+			message: '#^Class App\\Models\\Subscription uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Subscription.php
+
+		-
+			message: '#^Method App\\Models\\Subscription\:\:customer\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Subscription.php
+
+		-
+			message: '#^Method App\\Models\\Subscription\:\:plan\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Subscription.php
+
+		-
+			message: '#^Method App\\Models\\Subscription\:\:team\(\) return type with generic class Illuminate\\Database\\Eloquent\\Relations\\BelongsTo does not specify its types\: TRelatedModel, TDeclaringModel$#'
+			identifier: missingType.generics
+			count: 1
+			path: app/Models/Subscription.php
+
+		-
+			message: '#^Property App\\Models\\Subscription\:\:\$team_id \(int\<0, max\>\|null\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: app/Models/Subscription.php
 
 		-
 			message: '#^Class App\\Models\\Supplier uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types\: TFactory$#'
@@ -11297,6 +11363,36 @@ parameters:
 			identifier: method.nonObject
 			count: 1
 			path: app/Services/SalesOrderService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$amount\.$#'
+			identifier: property.notFound
+			count: 3
+			path: app/Services/SubscriptionBillingService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$interval\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/SubscriptionBillingService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/SubscriptionBillingService.php
+
+		-
+			message: '#^Cannot call method create\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/SubscriptionBillingService.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: app/Services/SubscriptionBillingService.php
 
 		-
 			message: '#^Method App\\Services\\WiseService\:\:exchangeAuthorizationCode\(\) return type has no value type specified in iterable type array\.$#'

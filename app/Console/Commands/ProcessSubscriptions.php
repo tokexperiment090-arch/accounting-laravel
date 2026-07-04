@@ -1,6 +1,10 @@
-<?php // src/app/Console/Commands/ProcessSubscriptions.php
+<?php
+
+// src/app/Console/Commands/ProcessSubscriptions.php
 declare(strict_types=1);
+
 namespace App\Console\Commands;
+
 use App\Models\Subscription;
 use App\Services\SubscriptionBillingService;
 use Illuminate\Console\Command;
@@ -9,6 +13,7 @@ class ProcessSubscriptions extends Command
 {
     #[\Override]
     protected $signature = 'subscriptions:process';
+
     #[\Override]
     protected $description = 'Generate draft invoices for all active subscriptions with due billing cycles';
 

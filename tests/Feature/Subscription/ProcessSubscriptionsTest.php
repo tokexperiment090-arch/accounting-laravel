@@ -1,5 +1,8 @@
-<?php // src/tests/Feature/Subscription/ProcessSubscriptionsTest.php
+<?php
+
+// src/tests/Feature/Subscription/ProcessSubscriptionsTest.php
 declare(strict_types=1);
+
 namespace Tests\Feature\Subscription;
 
 use App\Models\Customer;

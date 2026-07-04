@@ -1,6 +1,10 @@
-<?php // src/app/Models/Subscription.php
+<?php
+
+// src/app/Models/Subscription.php
 declare(strict_types=1);
+
 namespace App\Models;
+
 use App\Traits\IsTenantModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -35,10 +39,20 @@ class Subscription extends Model
         });
     }
 
-    public function customer(): BelongsTo { return $this->belongsTo(Customer::class); }
-    public function plan(): BelongsTo { return $this->belongsTo(Plan::class); }
+    public function customer(): BelongsTo
+    {
+        return $this->belongsTo(Customer::class);
+    }
 
-    public function pause(): void { $this->update(['status' => 'paused']); }
+    public function plan(): BelongsTo
+    {
+        return $this->belongsTo(Plan::class);
+    }
+
+    public function pause(): void
+    {
+        $this->update(['status' => 'paused']);
+    }
 
     public function resume(): void
     {
@@ -49,5 +63,8 @@ class Subscription extends Model
         $this->update(['status' => 'active', 'next_billing_date' => $next]);
     }
 
-    public function cancel(): void { $this->update(['status' => 'cancelled', 'cancelled_at' => now()]); }
+    public function cancel(): void
+    {
+        $this->update(['status' => 'cancelled', 'cancelled_at' => now()]);
+    }
 }
