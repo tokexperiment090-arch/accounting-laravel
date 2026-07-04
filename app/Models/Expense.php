@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Concerns\Approvable;
+use App\Concerns\Recurring;
 use App\Notifications\ExpenseApprovalNotification;
 use App\Traits\IsTenantModel;
 use Carbon\Carbon;
@@ -15,6 +16,7 @@ class Expense extends Model
 {
     use Approvable;
     use IsTenantModel;
+    use Recurring;
 
     #[\Override]
     protected $fillable = [
@@ -91,42 +93,25 @@ class Expense extends Model
         return $this->amount;
     }
 
-    public function generateRecurring(): void
+    // Approval threshold (App\Concerns\Approvable): an expense is routed on its amount.
+    public function approvalAmount(): float
     {
-        if (! $this->is_recurring || ! $this->shouldGenerateNew()) {
-            return;
-        }
-
-        $newExpense = $this->replicate();
-        $newExpense->date = $this->getNextDate();
-        $newExpense->approval_status = 'pending';
-        $newExpense->approved_by = null;
-        $newExpense->approved_at = null;
-        $newExpense->save();
-
-        $this->last_generated = now();
-        $this->save();
+        return (float) $this->amount;
     }
 
-    private function shouldGenerateNew(): bool
-    {
-        if ($this->recurrence_end && $this->recurrence_end < now()) {
-            return false;
-        }
+    // Recurrence hooks (App\Concerns\Recurring). No number column, no line
+    // items -> the trait's null defaults are correct; only these two differ.
 
-        return $this->getNextDate()->lte(now());
+    /**
+     * @return array<string, mixed>
+     */
+    protected function recurringDraftAttributes(): array
+    {
+        return ['approval_status' => 'pending', 'approved_by' => null, 'approved_at' => null, 'rejection_reason' => null];
     }
 
-    private function getNextDate(): Carbon
+    protected function recurringDateColumns(Carbon $date): array
     {
-        $lastDate = $this->last_generated ?? $this->recurrence_start;
-
-        return match ($this->recurrence_frequency) {
-            'daily' => $lastDate->addDay(),
-            'weekly' => $lastDate->addWeek(),
-            'monthly' => $lastDate->addMonth(),
-            'yearly' => $lastDate->addYear(),
-            default => $lastDate
-        };
+        return ['date' => $date->copy()];
     }
 }

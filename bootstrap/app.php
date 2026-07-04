@@ -79,7 +79,7 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withSchedule(function (Schedule $schedule): void {
-        $schedule->command('recurring:process')->daily();
+        $schedule->command('recurring:process')->daily()->withoutOverlapping();
         $schedule->command('invoices:send-reminders')->daily();
         $schedule->job(new EscalateApprovalsJob())->daily();
     })
