@@ -10,6 +10,7 @@ use App\Filament\App\Resources\Invoices\Pages\ListInvoices;
 use App\Filament\App\Resources\Invoices\RelationManagers\DocumentsRelationManager;
 use App\Models\Invoice;
 use App\Services\InvoicePostingService;
+use App\Services\PostingReversalService;
 use Filament\Actions\Action;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
@@ -167,7 +168,7 @@ class InvoiceResource extends Resource
                     ->visible(fn (Invoice $record): bool => $record->journal_entry_id !== null)
                     ->action(function (Invoice $record): void {
                         try {
-                            app(\App\Services\PostingReversalService::class)->reverseInvoice($record);
+                            app(PostingReversalService::class)->reverseInvoice($record);
                             Notification::make()
                                 ->title('Unposted from ledger.')
                                 ->success()

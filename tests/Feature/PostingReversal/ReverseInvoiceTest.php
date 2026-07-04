@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Tests\Feature\PostingReversal;
@@ -97,5 +98,26 @@ class ReverseInvoiceTest extends TestCase
 
         $this->expectException(RuntimeException::class);
         app(PostingReversalService::class)->reverseInvoice($invoice->fresh());
+    }
+
+    public function test_reverse_allowed_when_schedule_has_no_recognized_entries(): void
+    {
+        $user = User::factory()->create();
+        $team = Team::forceCreate(['user_id' => $user->id, 'name' => 'Sched', 'personal_team' => false]);
+        app(TenantProvisioningService::class)->provisionChartOfAccounts($team);
+        $customer = Customer::factory()->create(['team_id' => $team->id]);
+        $invoice = Invoice::factory()->create(['team_id' => $team->id, 'customer_id' => $customer->id, 'invoice_date' => '2026-06-01', 'total_amount' => 1200]);
+        $deferred = $this->account($team, 2400);
+        $sales = $this->account($team, 4000);
+        // Schedule (0 recognized) then post -> Dr AR / Cr Deferred.
+        app(RevenueRecognitionService::class)->createFromInvoice($invoice, 12, $deferred, $sales);
+        app(InvoicePostingService::class)->post($invoice->fresh());
+        $this->assertSame('1200.00', number_format((float) $deferred->fresh()->balance, 2, '.', ''));
+
+        // Allowed — nothing recognized yet.
+        app(PostingReversalService::class)->reverseInvoice($invoice->fresh());
+
+        $this->assertNull($invoice->fresh()->journal_entry_id);
+        $this->assertSame('0.00', number_format((float) $deferred->fresh()->balance, 2, '.', ''));
     }
 }

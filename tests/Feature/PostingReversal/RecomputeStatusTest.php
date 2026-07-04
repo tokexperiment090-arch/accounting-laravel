@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Tests\Feature\PostingReversal;
 
 use App\Models\Invoice;
+use App\Models\JournalEntry;
 use App\Models\Payment;
 use App\Models\Team;
 use App\Models\User;
@@ -21,7 +23,7 @@ class RecomputeStatusTest extends TestCase
         $this->actingAs($user);
         $invoice = Invoice::factory()->create(['team_id' => $team->id, 'total_amount' => 500, 'payment_status' => 'pending']);
         // A posted payment (journal_entry_id set to any non-null id) counts; an unposted one does not.
-        $entry = \App\Models\JournalEntry::create(['entry_date' => '2026-06-05', 'entry_type' => 'general']);
+        $entry = JournalEntry::create(['entry_date' => '2026-06-05', 'entry_type' => 'general']);
         $posted = Payment::create(['invoice_id' => $invoice->id, 'payment_amount' => 500, 'payment_date' => '2026-06-05', 'team_id' => $team->id, 'journal_entry_id' => $entry->id]);
 
         $invoice->recomputePaymentStatus();

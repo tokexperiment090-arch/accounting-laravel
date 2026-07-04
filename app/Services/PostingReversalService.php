@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Services;
@@ -23,7 +24,7 @@ class PostingReversalService
     public function reverseInvoice(Invoice $invoice): void
     {
         if ($invoice->journal_entry_id === null) {
-            throw new RuntimeException("Invoice {$invoice->getKey()} is not posted.");
+            throw new RuntimeException('Invoice '.((int) $invoice->getKey()).' is not posted.');
         }
         if ($invoice->payments()->whereNotNull('journal_entry_id')->exists()) {
             throw new RuntimeException('Reverse the invoice\'s posted payments before unposting the invoice.');
@@ -48,7 +49,7 @@ class PostingReversalService
     public function reversePayment(Payment $payment): void
     {
         if ($payment->journal_entry_id === null) {
-            throw new RuntimeException("Payment {$payment->getKey()} is not posted.");
+            throw new RuntimeException('Payment '.((int) $payment->getKey()).' is not posted.');
         }
 
         DB::transaction(function () use ($payment): void {

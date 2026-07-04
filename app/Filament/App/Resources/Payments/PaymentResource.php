@@ -9,6 +9,7 @@ use App\Filament\App\Resources\Payments\Pages\EditPayment;
 use App\Filament\App\Resources\Payments\Pages\ListPayments;
 use App\Models\Payment;
 use App\Services\PaymentPostingService;
+use App\Services\PostingReversalService;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -96,7 +97,7 @@ class PaymentResource extends Resource
                     ->visible(fn (Payment $record): bool => $record->journal_entry_id !== null)
                     ->action(function (Payment $record): void {
                         try {
-                            app(\App\Services\PostingReversalService::class)->reversePayment($record);
+                            app(PostingReversalService::class)->reversePayment($record);
                             Notification::make()
                                 ->title('Unposted from ledger.')
                                 ->success()

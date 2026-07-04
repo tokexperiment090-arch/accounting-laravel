@@ -265,6 +265,12 @@ parameters:
 			path: app/Console/Commands/SyncPlaidTransactions.php
 
 		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: app/Console/Commands/UnpostPayment.php
+
+		-
 			message: '#^Match expression does not handle remaining value\: string$#'
 			identifier: match.unhandled
 			count: 1
@@ -10321,6 +10327,12 @@ parameters:
 			path: app/Services/PaymentPostingService.php
 
 		-
+			message: '#^Cannot call method recomputePaymentStatus\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/PaymentPostingService.php
+
+		-
 			message: '#^Cannot cast mixed to int\.$#'
 			identifier: cast.int
 			count: 1
@@ -10571,6 +10583,24 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: app/Services/PlaidService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Payment\:\:\$invoice\.$#'
+			identifier: property.notFound
+			count: 1
+			path: app/Services/PostingReversalService.php
+
+		-
+			message: '#^Cannot call method recomputePaymentStatus\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: app/Services/PostingReversalService.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 2
+			path: app/Services/PostingReversalService.php
 
 		-
 			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$description\.$#'
