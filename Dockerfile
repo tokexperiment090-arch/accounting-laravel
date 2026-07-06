@@ -135,7 +135,8 @@ COPY --chown=${USER}:${USER} . .
 # Generate optimized autoloader now that all app files are present
 RUN composer dump-autoload --classmap-authoritative --no-dev && \
     composer clear-cache
-
+# Create cache directory
+RUN mkdir -p /tmp/opcache && chmod 777 /tmp/opcache
 # Create necessary Laravel directories
 RUN mkdir -p \
     storage/framework/sessions \
