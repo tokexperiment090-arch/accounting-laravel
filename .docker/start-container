@@ -1,53 +1,38 @@
-#!/usr/bin/env sh
+#!/bin/sh
+# .docker/start-container
+# RIYO+ Container Start Script
+
 set -e
 
-container_mode=${CONTAINER_MODE:-"http"}
-octane_server=${OCTANE_SERVER}
-running_migrations_and_seeders=${RUNNING_MIGRATIONS_AND_SEEDERS:-"false"}
+echo "🚀 Starting RIYO+ Container..."
 
-echo "Container mode: $container_mode"
+# ============================================================
+# Create OPcache directory at runtime (just in case)
+# ============================================================
+mkdir -p /tmp/opcache
+chmod 777 /tmp/opcache
 
-initialStuff() {
-    php artisan storage:link; \
-    php artisan optimize:clear; \
-    php artisan event:cache; \
-    php artisan config:cache; \
-    php artisan route:cache;
+# ============================================================
+# Verify OPcache configuration
+# ============================================================
+echo "🔧 OPcache file_cache: $(php -r "echo ini_get('opcache.file_cache') ?: 'not set';")"
 
-    if [ ${running_migrations_and_seeders} = "true" ]; then
-        echo "Running migrations and seeding database ..."
-        php artisan migrate --isolated --seed --force;
-    fi
-}
-
-if [ "$1" != "" ]; then
-    exec "$@"
-elif [ ${container_mode} = "http" ]; then
-    echo "Octane Server: $octane_server"
-    initialStuff
-    if [ ${octane_server}  = "frankenphp" ]; then
-        exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.frankenphp.conf
-    elif [ ${octane_server}  = "swoole" ]; then
-        exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.swoole.conf
-    elif [ ${octane_server}  = "roadrunner" ]; then
-        exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.roadrunner.conf
-    else
-        echo "Invalid Octane server supplied."
-        exit 1
-    fi
-elif [ ${container_mode} = "horizon" ]; then
-    initialStuff
-    exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.horizon.conf
-elif [ ${container_mode} = "scheduler" ]; then
-    initialStuff
-    exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.scheduler.conf
-elif [ ${container_mode} = "worker" ]; then
-    initialStuff
-    exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.worker.conf
-elif [ ${container_mode} = "reverb" ]; then
-    initialStuff
-    exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.reverb.conf
-else
-    echo "Container mode mismatched."
-    exit 1
+# ============================================================
+# Run migrations (if not already run)
+# ============================================================
+if [ -f artisan ]; then
+    php artisan migrate --force || echo "⚠️ Migration failed, continuing..."
 fi
+
+# ============================================================
+# Clear and cache config
+# ============================================================
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+# ============================================================
+# Start Supervisor
+# ============================================================
+echo "✅ Starting Supervisor..."
+exec /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
